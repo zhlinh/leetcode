@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
+*****************************************
+Author:  		zhlinh
+Email: 			zhlinhng@gmail.com
+Version: 		0.0.1
+Created Time: 	2016-01-04
+Last_modify: 	2016-01-04
+******************************************
+'''
+
+'''
 Given an array of integers,
 find two numbers such that they add up to a specific target number.
 
@@ -14,6 +24,7 @@ You may assume that each input would have exactly one solution.
 
     Input: numbers={2, 7, 11, 15}, target=9
     Output: index1=1, index2=2
+
 '''
 
 class Solution(object):
