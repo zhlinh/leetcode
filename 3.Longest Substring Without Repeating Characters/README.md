@@ -34,7 +34,7 @@ Runtime: 432 ms
 
 也就是说如果d[s[i]] < start的话就相当于不属于当前dict的，而不需要重新建立dict。
 
-此时的时间复杂度为O[n]。
+此时的时间复杂度为O(n)。
 
 submit的结果为:
 ```
@@ -43,4 +43,19 @@ Status: Accepted
 Runtime: 100 ms
 ```
 
+最后看到别人的答案说用List比用Dict更快，试了一下，确实快了一点，挺有意思的。
 
+关键是要先初始化一个大小为256，值全为-1的List，哈哈，然后将char按ascii码存入。
+
+chList = [-1] * 256
+
+asc = ord(s[i])
+
+此时的时间复杂度为O(n)
+
+submit的结果为:
+```
+981 / 981 test cases passed.
+Status: Accepted
+Runtime: 88 ms
+```

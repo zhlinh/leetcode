@@ -24,16 +24,14 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        d = {}
-        max = 0
-        #substr = None
+        chList = [-1] * 256
+        maxLen = 0
         start = 0
         for i in range(len(s)):
-            if s[i] in d and d[s[i]] >= start:
-                start = d[s[i]] + 1
-            d[s[i]] = i
-            if (i - start + 1) > max:
-                max = i - start + 1
-                #若需要求解substr
-                #substr = s[start:i+1]
-        return max
+            asc = ord(s[i])
+            if chList[asc] !=-1 and chList[asc] >= start:
+                if (i - start) > maxLen:
+                    maxLen = i - start
+                start = chList[asc] + 1
+            chList[asc] = i
+        return max(maxLen, len(s)-start)
