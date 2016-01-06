@@ -31,26 +31,21 @@ class Solution(object):
         lst = []
         i = j = 0
         for r in range(med):
-            if i > len(nums1)-1:
-                if j > len(nums2)-1:
-                    break
-                else:
+            if (i < len(nums1)) and (j < len(nums2)):
+                if nums1[i] > nums2[j]:
                     lst.append(nums2[j])
                     j = j + 1
-                    continue
-            if j > len(nums2)-1:
-                if i > len(nums1)-1:
-                    break
                 else:
                     lst.append(nums1[i])
                     i = i + 1
-                    continue
-            if nums1[i] > nums2[j]:
+            elif i < len(nums1):
+                lst.append(nums1[i])
+                i = i + 1
+            elif j < len(nums2):
                 lst.append(nums2[j])
                 j = j + 1
             else:
-                lst.append(nums1[i])
-                i = i + 1
+                break
         if sumLen % 2 == 0:
             return (lst[med-1]+lst[med-2])/float(2)
         else:
