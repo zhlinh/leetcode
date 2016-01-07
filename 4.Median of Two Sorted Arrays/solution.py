@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 '''
 *****************************************
-Author:  		zhlinh
+auther:  		zhlinh
 Email: 			zhlinhng@gmail.com
 Version: 		0.0.1
 Created Time: 	2016-01-06
-Last_modify: 	2016-01-06
+Last_modify: 	2016-01-07
 ******************************************
 '''
 
@@ -23,26 +23,44 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        tlen = len(nums1) + len(nums2)
-        if tlen % 2 == 1:
-            return self.findKth(nums1, nums2, tlen//2)
-        else:
-            return (self.findKth(nums1, nums2, tlen//2-1) + \
-                    self.findKth(nums1, nums2, tlen//2))/2.0
-
-    def findKth(self, nums1, nums2, k):
-        if len(nums1) > len(nums2):
-            nums1, nums2 = nums2, nums1
-        if not nums1:
-            return nums2[k]
-        if k == len(nums1) + len(nums2) - 1:
-            return max(nums1[-1], nums2[-1])
-        i = len(nums1) // 2
-        j = k - i
-        if nums1[i] > nums2[j]:
-            # Here assume it is O(1) to get A[:i] and B[j:].
-            # In python, it's not but in cpp it is.
-            return self.findKth(nums1[:i], nums2[j:], i)
-        else:
-            return self.findKth(nums1[i:], nums2[:j], j)
-
+        m, n = len(nums1), len(nums2)
+        if m > n:
+            # make sure m < n
+            nums1, nums2, m, n = nums2, nums1, n, m
+        # i in (imin, imax)
+        imin, imax, half_len = 0, m, (m + n + 1) // 2
+        while imin <= imax:
+            # binary search
+            i = (imin + imax) // 2
+            # i+j = m-i+n-j[or actually (m+n+1)-i-j], so j = (m+n+1)/2-i.
+            j = half_len - i
+            # move imin to right
+            if j > 0 and i < m and nums2[j-1] > nums1[i]:
+                imin = i + 1
+            # move imax to left
+            elif i > 0 and j < n and nums1[i-1] > nums2[j]:
+                imax = i - 1
+            # when meeting both two conditions, we get the answer here
+            else:
+                # just incase two inputs are both None.
+                if i == 0 and j == 0:
+                    return None
+                elif i == 0:
+                    num1 = nums2[j-1]
+                elif j == 0:
+                    num1 = nums1[i-1]
+                else:
+                    num1 = max(nums1[i-1], nums2[j-1])
+                # if m+n is odd
+                if (m + n) % 2 == 1:
+                    return num1
+                # in this case nums1[i] is None
+                if i == m:
+                    num2 = nums2[j]
+                # in this case nums2[j] is None
+                elif j == n:
+                    num2 = nums1[i]
+                else:
+                    num2 = min(nums1[i], nums2[j])
+                # if m+n is even
+                return (num1 + num2) / 2.0
