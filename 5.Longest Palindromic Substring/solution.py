@@ -22,14 +22,16 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        ll = lmax = len(s)
-        substr = None
-        while lmax > 0:
-            offset = 0
-            while (lmax + offset) <= ll:
-                substr = s[offset:(lmax+offset)]
-                if substr == substr[::-1]:
-                    return substr
-                else:
-                    offset = offset + 1
-            lmax = lmax - 1
+        if len(s) == 0:
+            return None
+        maxLen = 1
+        start = 0
+        for i in range(len(s)):
+            if i-maxLen >= 1 and s[i-maxLen-1:i+1] == s[i-maxLen-1:i+1][::-1]:
+                maxLen = maxLen + 2
+                start = i-maxLen-1
+                continue
+            if i-maxLen >= 0 and s[i-maxLen:i+1] == s[i-maxLen:i+1][::-1]:
+                maxLen = maxLen + 1
+                start = i-maxLen
+        return s[start:start+maxLen]
