@@ -45,21 +45,13 @@ class Solution(object):
         :type numRows: int
         :rtype: str
         """
-        cons = [[] for row in range(numRows)]
-        if numRows == 1:
+        cons = ["" for row in range(numRows)]
+        if numRows <= 1:
             return s
-        period = numRows + numRows - 2
-        output = ''
-        for i in range(len(s)):
-            tmp = i % period
-            if tmp < numRows:
-                cons[tmp].append(s[i])
-                #  print('%d: %s' % (tmp, cons[tmp]))
-            else:
-                tmp = (numRows-1) - (tmp-numRows+1)
-                cons[tmp].append(s[i])
-                #  print('%d: %s' % (tmp, cons[tmp]))
-        for i in range(numRows):
-            tmps = ''.join(cons[i])
-            output += tmps
-        return output
+        nRow, step = 0, 1
+        for c in s:
+            cons[nRow] += c
+            nRow += step
+            if nRow == 0 or nRow == numRows-1:
+                step = -step
+        return ''.join(cons)
