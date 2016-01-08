@@ -24,6 +24,8 @@
 
    因为maxLen会比一次加入一个字符多1。
 
+   时间复杂度为O(n)。
+
 submit的结果为:
 ```
 88 / 88 test cases passed.
