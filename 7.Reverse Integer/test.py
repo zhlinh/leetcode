@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-input = 51474836412
+input = 1534236469
 sol = Solution()
 result = sol.reverse(input)
 print(result)
