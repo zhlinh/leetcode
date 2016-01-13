@@ -24,17 +24,9 @@ class Solution(object):
         :type num: int
         :rtype: str
         """
-        index = 0
-        r = []
         one = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
         two = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
         three = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
         four = ['', 'M', 'MM', 'MMM']
-        d = [one, two, three, four]
-        di = 0
-        while num != 0:
-            index = num % 10
-            num = num // 10
-            r.append(d[di][index])
-            di += 1
-        return ''.join(r[::-1])
+        return four[num // 1000] + three[(num % 1000) // 100] \
+                + two[(num % 100)//10] + one[(num % 10)]
