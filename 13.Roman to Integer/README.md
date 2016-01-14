@@ -12,22 +12,15 @@ whereas a letter placed before another of greater value subtracts
 
 (thus XC is 90).
 
-然后`个、十、百、千`位各建一个数组索引，便很容易转换了。
+思路就是把每个字母转成数字然后相加或相减。
 
-先提交了一版，还用到数组翻转之类，比较繁琐。
+需要注意的是当前面的字母代表的数字没有后面的字母代表的数字大时为相减。
 
-submit的结果为:
-```
-3999 / 3999 test cases passed.
-Status: Accepted
-Runtime: 116 ms
-```
-
-然后第二版改进了下，只用到了字符串相加。
+提交了一版。
 
 submit的结果为:
 ```
 3999 / 3999 test cases passed.
 Status: Accepted
-Runtime: 108 ms
+Runtime: 172 ms
 ```
