@@ -21,20 +21,19 @@ class Solution(object):
         :type strs: List[str]
         :rtype: str
         """
-        end = 0
+        rstr = ""
+        index = 0
         if len(strs) == 0:
             return ""
-        if len(strs) == 1:
-            return strs[0]
-        if strs[0] == "":
-            return ""
-        while True:
-            for i in range(1, len(strs)):
-                if strs[i] == "":
-                    return ""
-                if end >= len(strs[0]) or end >= len(strs[i]):
-                    return strs[0][:end]
-                if strs[i][end] != strs[0][end]:
-                    return strs[0][:end]
-            end += 1
-        return strs[0][:end + 1]
+        minLen = len(strs[0])
+        for i in range(1, len(strs)):
+            if len(strs[i]) < minLen:
+                minLen = len(strs[i])
+        while index < minLen:
+            c = strs[0][index]
+            for j in range(1, len(strs)):
+                if strs[j][index] != c:
+                    return rstr
+            rstr += c
+            index += 1
+        return rstr

@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-inpt = ["a", "a"]
+inpt = ["aa", "aab"]
 sol = Solution()
 result = sol.longestCommonPrefix(inpt)
 print(result)
