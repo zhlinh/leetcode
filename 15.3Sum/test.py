@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-inpt = [-1, 0, 1, 2, -1, -4]
+inpt = [0, 0, 0, 0]
 sol = Solution()
 result = sol.threeSum(inpt)
 print(result)
