@@ -30,8 +30,6 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         rList = []
-        if len(nums) < 3:
-            return []
         nums.sort()
         for i in range(len(nums) - 2):
             if i > 0 and nums[i] == nums[i-1]:
