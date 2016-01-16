@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 '''
 *****************************************
-auther:  		zhlinh
-Email: 			zhlinhng@gmail.com
-Version: 		0.0.1
-Created Time: 	2016-01-06
-Last_modify: 	2016-01-07
+Author:         zhlinh
+Email:          zhlinhng@gmail.com
+Version:        0.0.1
+Created Time:   2016-01-06
+Last_modify:    2016-01-07
 ******************************************
+
 '''
 
 '''
