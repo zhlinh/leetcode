@@ -34,22 +34,14 @@ class Solution(object):
                  "mno", "pqrs", "tuv", "wxyz"]
         if len(digits) == 0:
             return []
-        sLen = 1
+        rList = [""]
         for i in range(len(digits)):
-            mapStr = dList[int(digits[i])]
-            if len(mapStr) != 0:
-                sLen = sLen * len(mapStr)
-        rList = ["" for i in range(sLen)]
-        afterLen = sLen
-        for i in range(len(digits)):
-            mapStr = dList[int(digits[i])]
-            if len(mapStr) == 0:
+            dStr = dList[int(digits[i])]
+            if dStr == "":
                 continue
-            afterLen //= len(mapStr)
-            beforeLen = sLen // afterLen // len(mapStr)
-            for j in range(beforeLen):
-                for k in range(len(mapStr)):
-                    for l in range(afterLen):
-                        rList[j * (len(mapStr) * afterLen) + k * afterLen + l] \
-                            += mapStr[k]
+            tmpList = []
+            for c in dStr:
+                for r in rList:
+                    tmpList.append(r + c)
+            rList = tmpList
         return rList
