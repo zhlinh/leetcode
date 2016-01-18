@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-inpt = "235"
+inpt = "135"
 sol = Solution()
 result = sol.letterCombinations(inpt)
 print(result)

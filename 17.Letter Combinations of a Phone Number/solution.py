@@ -32,16 +32,18 @@ class Solution(object):
         """
         dList = ["", "", "abc", "def", "ghi", "jkl", \
                  "mno", "pqrs", "tuv", "wxyz"]
+        rList = []
         if len(digits) == 0:
             return []
-        rList = [""]
-        for i in range(len(digits)):
-            dStr = dList[int(digits[i])]
-            if dStr == "":
-                continue
-            tmpList = []
-            for c in dStr:
-                for r in rList:
-                    tmpList.append(r + c)
-            rList = tmpList
+        self.dfs(digits, dList, 0, "", rList)
         return rList
+
+    def dfs(self, digits, dic, depth, path, res):
+        if depth == len(digits):
+            res.append(path)
+            return None
+        # incase for digits[i] == 0 or 1
+        if dic[int(digits[depth])] == "":
+            depth += 1
+        for c in dic[int(digits[depth])]:
+            self.dfs(digits, dic, depth + 1, path + c, res)
