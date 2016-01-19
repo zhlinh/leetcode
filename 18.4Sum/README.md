@@ -17,3 +17,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 128 ms
 ```
+
+第三版用了递归，写了个比较通用的，可以计算N-Sum(N>=2)的。
+
+时间复杂度为O(n^3)。
+
+submit的结果为:
+```
+282 / 282 test cases passed.
+Status: Accepted
+Runtime: 128 ms
+```

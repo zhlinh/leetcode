@@ -36,33 +36,33 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         rList = []
-        if len(nums) < 4:
-            return []
         nums.sort()
-        if nums[-1] * 4 < target:
-            return []
-        for i in range(len(nums) - 3):
-            f = nums[i]
-            if (i > 0 and f == nums[i-1]) or f * 4 > target:
-                continue
-            for j in range(i + 1, len(nums) - 2):
-                s = nums[j]
-                if (j > i + 1 and s == nums[j-1]) or s * 3 > target - nums[i]:
-                    continue
-                if nums[-1] * 3 < target - nums[i]:
-                    break
-                l, r = j + 1, len(nums) - 1
-                while l < r:
-                    if f + s + nums[l] + nums[r] > target:
-                        r -= 1
-                    elif f + s + nums[l] + nums[r] < target:
-                        l += 1
-                    else:
-                        rList.append([f, s, nums[l], nums[r]])
-                        while l < r and nums[l+1] == nums[l]:
-                            l += 1
-                        while l < r and nums[r-1] == nums[r]:
-                            r -= 1
-                        r -= 1
-                        l += 1
+        self.findNum(nums, 0, target, 4, [], rList)
         return rList
+
+    def findNum(self, nums, start, target, N, result, results):
+        if len(nums) < N or N < 2:
+            return
+        if nums[start] * N > target or nums[-1] * N < target:
+            return
+        if N == 2:
+            l, r = start, len(nums) - 1
+            while l < r:
+                if nums[l] + nums[r] > target:
+                    r -= 1
+                elif nums[l] + nums[r] < target:
+                    l += 1
+                else:
+                    results.append(result + [nums[l], nums[r]])
+                    while l < r and nums[l+1] == nums[l]:
+                        l += 1
+                    while l < r and nums[r-1] == nums[r]:
+                        r -= 1
+                    r -= 1
+                    l += 1
+        else:
+            for i in range(start, len(nums) - N + 1):
+                if i > start and nums[i] == nums[i - 1]:
+                    continue
+                self.findNum(nums, i + 1, target - nums[i], \
+                        N - 1, result + [nums[i]], results)
