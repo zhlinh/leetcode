@@ -6,9 +6,7 @@
 
 最终自己提交了一版，时间复杂度为O(n)。
 
-这次没有test.py，无法在本地使用，因为输入输出略微麻烦了(主要是因为懒，掩面逃~)。
-
-可以去[leetcode官网](https://leetcode.com/problems/add-two-numbers)测试。
+把test.py给补上了，哈哈。
 
 submit的结果为:
 ```
