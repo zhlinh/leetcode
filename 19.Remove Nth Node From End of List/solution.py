@@ -39,16 +39,11 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        listp = head
-        listLen = 0
-        while listp != None:
-            listLen += 1
-            listp=listp.next
-        if listLen - n == 0:
-            head = head.next
-            return head
-        listp = head
-        for i in range(listLen - n - 1):
-            listp = listp.next
-        listp.next = listp.next.next
-        return head
+        dummy = l = ListNode(0)
+        l.next = r = head
+        for _ in range(n):
+            r = r.next
+        while r != None:
+            l, r = l.next, r.next
+        l.next = l.next.next
+        return dummy.next
