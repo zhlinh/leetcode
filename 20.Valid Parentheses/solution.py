@@ -27,11 +27,11 @@ class Solution(object):
         lb = []
         rb = {')':'(', ']':'[', '}':'{'}
         for c in s:
-            if c == '(' or c == '[' or c == '{':
+            if c in rb.values:
                 lb.append(c)
-            if c in rb:
+            if c in rb.keys:
                 if len(lb) == 0 or lb[-1] != rb[c]:
                     return False
                 else:
                     lb.pop()
-        return True if len(lb) == 0 else False
+        return len(lb) == 0
