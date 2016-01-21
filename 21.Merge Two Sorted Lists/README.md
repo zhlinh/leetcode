@@ -19,3 +19,13 @@ submit的结果为:
 Status: Accepted
 Runtime: 60 ms
 ```
+
+第三版用了递归，而且是非尾递归，所以长ListNode可能会有栈溢出现象。
+
+时间复杂度为O(n)
+
+```
+208 / 208 test cases passed.
+Status: Accepted
+Runtime: 60 ms
+```
