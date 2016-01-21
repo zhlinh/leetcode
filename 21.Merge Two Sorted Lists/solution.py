@@ -28,20 +28,15 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        head = lt = ListNode(0)
-        while l1 != None or l2 != None:
-            if l1 != None and l2 != None:
-                if l1.val < l2.val:
-                    lt.next = ListNode(l1.val)
-                    lt, l1 = lt.next, l1.next
-                else:
-                    lt.next = ListNode(l2.val)
-                    lt, l2 = lt.next, l2.next
-            elif l1 == None:
-                lt.next = ListNode(l2.val)
-                lt, l2 = lt.next, l2.next
+        dummy = lt = ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val:
+                lt.next = l1
+                l1 = l1.next
             else:
-                lt.next = ListNode(l1.val)
-                lt, l1 = lt.next, l1.next
-        return head.next
+                lt.next = l2
+                l2 = l2.next
+            lt = lt.next
+        lt.next = l1 or l2
+        return dummy.next
 
