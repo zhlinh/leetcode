@@ -25,17 +25,12 @@ class Solution(object):
         :type n: int
         :rtype: List[str]
         """
-        rList = []
-        self.dfs(n, n, "", rList)
-        return rList
+        dp = [[] for i in range(n + 1)]
+        dp[0].append('')
+        for i in range(n + 1):
+            for j in range(i):
+                for y in dp[i - j - 1]:
+                    for x in dp[j]:
+                        dp[i].append('(' + x + ')' + y)
+        return dp[n]
 
-    def dfs(self, left, right, path, res):
-        if left > right:
-            return
-        if not right:
-            res.append(path)
-            return
-        if left:
-            self.dfs(left - 1, right, path + "(", res)
-        if right:
-            self.dfs(left, right - 1, path + ")", res)
