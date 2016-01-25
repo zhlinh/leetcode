@@ -27,23 +27,17 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        dummy = lt = ListNode(0)
-        if not lists:
-            return []
-        num = len(lists)
-        while num > 1:
-            start = 0
-            end = num - 1
-            tmpList = []
-            while start < end:
-                tmpList.append(self.mergeTwoLists(lists[start], lists[end]))
-                start += 1
-                end -= 1
-            if start == end:
-                tmpList.append(lists[start])
-            lists = tmpList
-            num = len(lists)
-        return lists[0]
+        return self.helper(lists, 0, len(lists) - 1)
+
+    def helper(self, lists, start, end):
+        if start > end:
+            return
+        if start == end:
+            return lists[start]
+        mid = (start + end) >> 1
+        l1 = self.helper(lists, start, mid)
+        l2 = self.helper(lists, mid + 1, end)
+        return self.mergeTwoLists(l1, l2)
 
     def mergeTwoLists(self, l1, l2):
         dummy = lt = ListNode(0)

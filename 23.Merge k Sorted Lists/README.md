@@ -10,3 +10,12 @@ submit的结果为：
 Status: Accepted
 Runtime: 172 ms
 ```
+
+第二版几乎是第一版的思路，只是改为递归来实现，这也是merge的常用方法。
+
+submit的结果为：
+```
+130 / 130 test cases passed.
+Status: Accepted
+Runtime: 144 ms
+```

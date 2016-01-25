@@ -22,7 +22,7 @@ def lsListNode(head):
     """
     lnp = head
     rList = []
-    while lnp != None:
+    while lnp:
         rList.append(lnp.val)
         lnp = lnp.next
     return rList
