@@ -31,16 +31,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if not nums:
-            return 0
-        if len(nums) == 1:
-            return 1
-        i, j = 1, 1
-        tmp = nums[0]
-        while j < len(nums):
-            if nums[j] != tmp:
-                nums[i] = nums[j]
+        i, j = 0, 0
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i]:
                 i += 1
-                tmp = nums[j]
-            j += 1
-        return i
+                nums[i] = nums[j]
+        return i + 1 if nums else 0
