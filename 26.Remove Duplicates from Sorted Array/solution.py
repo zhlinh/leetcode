@@ -35,10 +35,12 @@ class Solution(object):
             return 0
         if len(nums) == 1:
             return 1
-        rLen = 1
-        for i in range(1, len(nums)):
-            if nums[rLen] == nums[rLen-1]:
-                nums.pop(rLen)
-            else:
-                rLen += 1
-        return rLen
+        i, j = 1, 1
+        tmp = nums[0]
+        while j < len(nums):
+            if nums[j] != tmp:
+                nums[i] = nums[j]
+                i += 1
+                tmp = nums[j]
+            j += 1
+        return i
