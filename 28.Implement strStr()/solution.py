@@ -26,14 +26,24 @@ class Solution(object):
         """
         if not needle:
             return 0
-        j = 0
-        for i in range(len(haystack) - len(needle) + 1):
-            if haystack[i] == needle[0]:
-                j = 1
-                while i + j < len(haystack) and j < len(needle):
-                    if haystack[i+j] != needle[j]:
-                        break
-                    j += 1
-            if j == len(needle):
-                return i
+        i, j, m, n = -1, 0, len(haystack), len(needle)
+        next = [-1] * n
+        # prefix for next[]
+        while j < n - 1:
+            if i == -1 or needle[j] == needle[i]:
+                i += 1
+                j += 1
+                next[j] = i
+            else:
+                i = next[i]
+        # start checking
+        i = j = 0
+        while i < m and j < n:
+            if j == -1 or needle[j] == haystack[i]:
+                i += 1
+                j += 1
+            else:
+                j = next[j]
+        if j == n:
+            return i - j
         return -1
