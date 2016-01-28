@@ -3,8 +3,8 @@
 
 from solution import Solution
 
-inpt1 = -2147483648
-inpt2 = -1
+inpt1 = 9
+inpt2 = 3
 sol = Solution()
 res = sol.divide(inpt1, inpt2)
 print(res)

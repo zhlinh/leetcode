@@ -28,13 +28,16 @@ class Solution(object):
         s = (dividend > 0) is (divisor > 0)
         dividend, divisor = abs(dividend), abs(divisor)
         res = 0
-        while dividend >= divisor:
-            tmp, i = divisor, 1
-            while dividend >= tmp:
+        tmp, i = divisor, 1
+        while tmp < dividend:
+            tmp <<= 1
+            i <<= 1
+        while tmp >= divisor:
+            if dividend >= tmp:
                 dividend -= tmp
                 res += i
-                i <<= 1
-                tmp <<= 1
+            i >>= 1
+            tmp >>= 1
         if not s:
             res = -res
         return min(max(res, -2147483648), 2147483647)
