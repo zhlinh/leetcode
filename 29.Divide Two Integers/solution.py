@@ -40,4 +40,4 @@ class Solution(object):
             tmp >>= 1
         if not s:
             res = -res
-        return min(max(res, -2147483648), 2147483647)
+        return min(max(res, -2 ** 31), 2 ** 31 - 1)
