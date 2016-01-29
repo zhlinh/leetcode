@@ -19,5 +19,5 @@ submit的结果为:
 ```
 988 / 988 test cases passed.
 Status: Accepted
-Runtime: 64 ms
+Runtime: 56 ms
 ```
