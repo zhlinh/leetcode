@@ -27,15 +27,17 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        stack = [0]
-        for x in s:
-            if x == '(':
-                stack.append(1)
-            elif stack[-1] & 1:
-                a = stack.pop()
-                stack[-1] += a + 1
-            else:
-                stack.append(0)
-        r = max(stack)
-        # if r is even then return r, else return r - 1
-        return r - (r % 2)
+        dp = [0 for x in range(len(s))]
+        cmax = 0
+        for i in range(1, len(s)):
+            if s[i] == ')':
+                # case 1: ()()()
+                if s[i-1] == '(':
+                    dp[i] = dp[i-2] + 2
+                # case 2: ((()))
+                elif i-dp[i-1]-1 >= 0 and s[i-dp[i-1]-1] == '(' and dp[i-1] > 0:
+                    dp[i] = 2 + dp[i-1] + dp[i-dp[i-1]-2]
+                cmax = max(dp[i], cmax)
+        return cmax
+
+

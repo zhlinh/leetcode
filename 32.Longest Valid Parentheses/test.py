@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-inpt = "()(()"
+inpt = "()(())"
 sol = Solution()
 res = sol.longestValidParentheses(inpt)
 print(res)
