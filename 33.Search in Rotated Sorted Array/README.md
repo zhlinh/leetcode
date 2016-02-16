@@ -8,3 +8,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 56 ms
 ```
+
+第二版先找出旋转的起点，然后再用二分法来寻找。
+
+submit的结果为:
+```
+194 / 194 test cases passed.
+Status: Accepted
+Runtime: 52 ms
+```
