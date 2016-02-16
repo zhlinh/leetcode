@@ -10,3 +10,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 48 ms
 ```
+
+第二版也是利用二分法，但利用了target-0.5，和target+0.5来调用同一函数。
+
+值得注意的是lo, hi中的hi取值为len(nums)，这样才有可能会有返回len(nums)的情况。
+
+时间复杂度为O(log(n))。
+
+submit的结果为:
+```
+81 / 81 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```

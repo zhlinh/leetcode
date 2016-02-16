@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-inums = [2, 2]
+inums = []
 target = 2
 sol = Solution()
 res = sol.searchRange(inums, target)

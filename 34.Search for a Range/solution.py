@@ -30,28 +30,19 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        if not nums:
+        l = self.search(nums, target - 0.5)
+        r = self.search(nums, target + 0.5)
+        if l == r:
             return [-1, -1]
-        # bisect_left
-        lo, hi = 0, len(nums) - 1
+        else:
+            return [l, r - 1]
+
+    def search(self, nums, target):
+        lo, hi = 0, len(nums)
         while lo < hi:
             mid = (lo + hi) // 2
             if nums[mid] < target:
                 lo = mid + 1
             else:
                 hi = mid
-        l = lo
-        if nums[l] != target:
-            l = -1
-        # bisect_right
-        lo, hi = 0, len(nums) - 1
-        while lo < hi:
-            mid = (lo + hi) // 2 + 1
-            if nums[mid] > target:
-                hi = mid - 1
-            else:
-                lo = mid
-        r = lo
-        if nums[r] != target:
-            r = -1
-        return [l, r]
+        return lo
