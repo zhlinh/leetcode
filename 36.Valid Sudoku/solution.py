@@ -28,27 +28,24 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: bool
         """
+        dic_hor = [{} for _ in range(9)]
+        dic_ver = [{} for _ in range(9)]
+        dic_cell = [[{} for _ in range(3)] for __ in range(3)]
         for i in range(9):
-            dic_hor, dic_ver = {}, {}
             for j in range(9):
-                if board[i][j] != '.':
-                    if board[i][j] not in dic_hor:
-                        dic_hor[board[i][j]] = 1
-                    else:
-                        return False
-                if board[j][i] != '.':
-                    if board[j][i] not in dic_ver:
-                        dic_ver[board[j][i]] = 1
-                    else:
-                        return False
-        for m in range(0, 7, 3):
-            for n in range(0, 7, 3):
-                dic_sub = {}
-                for i in range(3):
-                    for j in range(3):
-                        if board[i+m][j+n] != '.':
-                            if board[i+m][j+n] not in dic_sub:
-                                dic_sub[board[i+m][j+n]] = 1
-                            else:
-                                return False
+                ch = board[i][j]
+                if ch == '.':
+                    continue
+                if ch not in dic_hor[i]:
+                    dic_hor[i][ch] = 1
+                else:
+                    return False
+                if ch not in dic_ver[j]:
+                    dic_ver[j][ch] = 1
+                else:
+                    return False
+                if ch not in dic_cell[i//3][j//3]:
+                    dic_cell[i//3][j//3][ch] = 1
+                else:
+                     return False
         return True
