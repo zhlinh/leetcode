@@ -25,19 +25,14 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
-        if not height:
-            return 0
-        hi = height.index(max(height))
-        water = 0
+        water, minH = 0, 0
         l, r = 0, len(height) - 1
-        while l < hi:
-            if height[l] > height[l+1]:
-                water += height[l] - height[l+1]
-                height[l+1] = height[l]
-            l += 1
-        while r > hi:
-            if height[r] > height[r-1]:
-                water += height[r] - height[r-1]
-                height[r-1] = height[r]
-            r -= 1
+        while l < r:
+            while l < r and height[l] <= minH:
+                    water += minH - height[l]
+                    l += 1
+            while l < r and height[r] <= minH:
+                    water += minH - height[r]
+                    r -= 1
+            minH = min(height[l], height[r])
         return water
