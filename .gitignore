@@ -58,3 +58,6 @@ target/
 
 # swap files
 *.swp
+
+# zsh
+*.stackdump
