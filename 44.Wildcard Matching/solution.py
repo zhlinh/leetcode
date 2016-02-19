@@ -38,17 +38,21 @@ class Solution(object):
         :type p: str
         :rtype: bool
         """
-        if len(p) - p.count('*') > len(s):
-            return False
-        dp = [[False for _ in range(len(s)+1)] for __ in range(len(p)+1)]
-        dp[0][0] = True
-        for i in range(1, len(p)+1):
-            dp[i][0] = dp[i-1][0] and p[i-1] == '*'
-        for i in range(1, len(p)+1):
-            for j in range(1, len(s)+1):
-                if p[i-1] == '*':
-                    dp[i][j] = dp[i-1][j] or dp[i][j-1]
-                else:
-                    dp[i][j] = dp[i-1][j-1] and \
-                            (p[i-1] == s[j-1] or p[i-1] == '?')
-        return dp[-1][-1]
+        sn, pn = len(s), len(p)
+        save_si, save_pi = 0, -1
+        pi, si = 0, 0
+        while si < sn:
+            if si < sn and pi < pn and (s[si] == p[pi] or p[pi] == '?'):
+                si, pi = si + 1, pi + 1
+            elif pi < pn and p[pi] == '*':
+                save_si, save_pi = si, pi + 1
+                pi += 1
+            elif save_pi != -1:
+                pi = save_pi
+                save_si += 1
+                si = save_si
+            else:
+                return False
+        while pi < pn and p[pi] == '*':
+            pi += 1
+        return pi == pn

@@ -8,3 +8,15 @@ submit的结果为:
 Status: Accepted
 Runtime: 1100 ms
 ```
+
+第二版用了save_si和save_pi来作回溯用，确定*所代表的字符的个数。
+
+时间复杂度为O(n)，相当巧妙的方法。
+
+submit的结果为:
+```
+1801 / 1801 test cases passed.
+Status: Accepted
+Runtime: 128 ms
+```
+
