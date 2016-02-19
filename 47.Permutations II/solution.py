@@ -24,16 +24,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        levels = [nums]
+        results = []
+        self.dfs(0, nums, results)
+        return results
+
+    def dfs(self, start, nums, results):
+        if start >= len(nums) - 1:
+            results.append(nums[:])
+            return
         dic = {}
-        for start in range(len(nums) - 1):
-            for lsi in range(len(levels)):
-                dic = {}
-                dic[levels[lsi][start]] = 1
-                for li in range(start + 1, len(levels[lsi])):
-                    if levels[lsi][li] not in dic:
-                        dic[levels[lsi][li]] = 1
-                        tmp = levels[lsi][:]
-                        tmp[start], tmp[li] = tmp[li], tmp[start]
-                        levels.append(tmp)
-        return levels
+        for i in range(start, len(nums)):
+            if nums[i] not in dic:
+                dic[nums[i]] = 1
+                nums[start], nums[i] = nums[i], nums[start]
+                self.dfs(start + 1, nums, results)
+                nums[start], nums[i] = nums[i], nums[start]

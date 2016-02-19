@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-nums = [3,3,0,0,2,2]
+nums = [1, 1, 2]
 sol = Solution()
 res = sol.permute(nums)
 print(res)
