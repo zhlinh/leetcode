@@ -12,9 +12,25 @@ Runtime: 120 ms
 第二版用DFS，也是用了dic来避免当前位置的重复。
 
 submit的结果为:
-
 ```
 25 / 25 test cases passed.
 Status: Accepted
 Runtime: 116 ms
+```
+
+第三版也是DFS，但先排序，然后换交换位置后并不交换回来。
+
+在此例的DFS递归中都不需要交换回来。(DFS一般需恢复原样)
+
+因为都是一个个位置来确定的，到最后一层才完全确定序列。
+
+与当前start位置之后的序列顺序并无关系。
+
+这样简单地与上一次start位置的元素相比较就可替换不重复的元素。
+
+submit的结果为:
+```
+25 / 25 test cases passed.
+Status: Accepted
+Runtime: 120 ms
 ```

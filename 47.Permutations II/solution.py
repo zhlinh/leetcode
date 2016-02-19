@@ -25,17 +25,16 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         results = []
+        nums.sort()
         self.dfs(0, nums, results)
         return results
 
     def dfs(self, start, nums, results):
         if start >= len(nums) - 1:
-            results.append(nums[:])
+            results.append(nums)
             return
-        dic = {}
         for i in range(start, len(nums)):
-            if nums[i] not in dic:
-                dic[nums[i]] = 1
-                nums[start], nums[i] = nums[i], nums[start]
-                self.dfs(start + 1, nums, results)
-                nums[start], nums[i] = nums[i], nums[start]
+            if i > start and nums[i] == nums[start]:
+                continue
+            nums[start], nums[i] = nums[i], nums[start]
+            self.dfs(start + 1, nums[:], results)
