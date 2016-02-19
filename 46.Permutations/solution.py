@@ -24,16 +24,11 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        results = []
-        self.dfs(nums, 0, results)
-        return results
-
-    def dfs(self, nums, start, results):
-        if start >= len(nums):
-            results.append(nums)
-            return
-        for i in range(start, len(nums)):
-            nums[start], nums[i] = nums[i], nums[start]
-            # if nums will be used in different depth, should deliver nums[:]
-            self.dfs(nums[:], start+1, results)
-            nums[start], nums[i] = nums[i], nums[start]
+        levels = [nums]
+        for start in range(len(nums) - 1):
+            for lsi in range(len(levels)):
+                for li in range(start + 1, len(levels[lsi])):
+                    tmp = levels[lsi][:]
+                    tmp[start], tmp[li] = tmp[li], tmp[start]
+                    levels.append(tmp)
+        return levels

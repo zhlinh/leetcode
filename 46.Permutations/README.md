@@ -21,3 +21,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 72 ms
 ```
+
+第三版用了BFS，就是不断地通过调换别的元素到当前位置来扩充叶子节点的规模。
+
+submit的结果为:
+```
+25 / 25 test cases passed.
+Status: Accepted
+Runtime: 80 ms
+```
