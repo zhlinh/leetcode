@@ -34,17 +34,11 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) < 2:
-            return 0
+        level = 0
         curMax, nextMax = 0, 0
-        i, steps = 0, 0
-        # nodes of current level > 0
-        while curMax - i >= 0:
-            steps += 1
-            while i <= curMax:
-                nextMax = max(nextMax, i + nums[i])
-                if nextMax >= len(nums) - 1:
-                    return steps
-                i += 1
-            curMax = nextMax
-        return 0
+        for i in range(len(nums) - 1):
+            nextMax = max(nextMax, i + nums[i])
+            if i == curMax and nextMax > curMax:
+                level += 1
+                curMax = nextMax
+        return level

@@ -12,3 +12,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 68 ms
 ```
+
+第二版也是分层的思路，但是代码更清晰明了。
+
+时间复杂度为O(n)。
+
+submit的结果为:
+```
+91 / 91 test cases passed.
+Status: Accepted
+Runtime: 68 ms
+```
