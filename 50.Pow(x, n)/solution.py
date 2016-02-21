@@ -21,11 +21,14 @@ class Solution(object):
         :type n: int
         :rtype: float
         """
-        if n == 0:
-            return 1
-        elif n < 0:
-            return 1.0 / (x * self.myPow(x, -(n+1)))
-        elif n % 2:
-            return x * self.myPow(x, n-1)
-        else:
-            return self.myPow(x*x, n/2)
+        res = 1
+        if n < 0:
+            x = 1.0 / x
+            n = -(n + 1)
+            res = res * x
+        while n > 0:
+            if n & 1 == 1:
+                res = res * x
+            x *= x
+            n >>= 1
+        return res
