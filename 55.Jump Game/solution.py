@@ -30,14 +30,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        if len(nums) < 2:
-            return True
-        i, curMax, nextMax = 0, 0, nums[0]
-        while i < len(nums) and i <= curMax:
-            if curMax >= len(nums) - 1:
-                return True
-            while i <= curMax:
-                nextMax = max(nextMax, (i + nums[i]))
-                i += 1
-            curMax = nextMax
-        return False
+        i, reach = 0, 0
+        while i < len(nums) and i <= reach:
+            reach = max(reach, i + nums[i])
+            i += 1
+        return i == len(nums)
