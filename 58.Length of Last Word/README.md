@@ -8,3 +8,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 40 ms
 ```
+
+第二版把判断都统一到循环内部，让代码更加简洁。
+
+submit的结果为:
+```
+59 / 59 test cases passed.
+Status: Accepted
+Runtime: 36 ms
+```
