@@ -8,3 +8,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 88 ms
 ```
+
+第一版的思路分为left，重叠的部分，right。
+
+然后用一个循环来计算上述部分即可。
+
+时间复杂度为O(n)
+
+submit的结果为:
+```
+151 / 151 test cases passed.
+Status: Accepted
+Runtime: 88 ms
+```

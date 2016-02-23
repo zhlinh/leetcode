@@ -39,24 +39,14 @@ class Solution(object):
         :type newInterval: Interval
         :rtype: List[Interval]
         """
-        if not intervals:
-            return [newInterval]
-        res = []
-        i = 0
-        while i < len(intervals) and newInterval.start > intervals[i].start:
-            i += 1
-        intervals.insert(i, newInterval)
-        if i == 0:
-            last = intervals[0]
-        else:
-            last = intervals[i-1]
-            res += intervals[:i-1]
-        while i < len(intervals):
-            if last.end >= intervals[i].start:
-                last.end = max(last.end, intervals[i].end)
+        ns, ne = newInterval.start, newInterval.end
+        left, right = [], []
+        for x in intervals:
+            if x.end < ns:
+                left.append(x)
+            elif x.start > ne:
+                right.append(x)
             else:
-                res.append(last)
-                last = intervals[i]
-            i += 1
-        res.append(last)
-        return res
+                ns = min(x.start, ns)
+                ne = max(x.end, ne)
+        return left + [Interval(ns, ne)] + right
