@@ -35,9 +35,11 @@ class Solution(object):
         """
         if m == 0 or n == 0:
             return 0
-        k = min(m - 1, n - 1)
-        nth = m + n - 2
-        res = 1
-        for i in range(1, k + 1):
-            res = res * (nth - k + i) // i
-        return res
+        dp = [[0 for _ in range(n)] for __ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[m-1][n-1]
