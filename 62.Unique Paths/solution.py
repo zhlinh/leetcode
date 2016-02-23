@@ -35,11 +35,9 @@ class Solution(object):
         """
         if m == 0 or n == 0:
             return 0
-        factor_k, factor_m, factor_n = 1, 1, 1
-        for i in range(1, m + n - 1):
-            factor_k *= i
-            if i == m - 1:
-                factor_m = factor_k
-            if i == n - 1:
-                factor_n = factor_k
-        return factor_k // (factor_m * factor_n)
+        k = min(m - 1, n - 1)
+        nth = m + n - 2
+        res = 1
+        for i in range(1, k + 1):
+            res = res * (nth - k + i) // i
+        return res

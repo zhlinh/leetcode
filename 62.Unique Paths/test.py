@@ -3,8 +3,8 @@
 
 from solution import Solution
 
-m = 1
-n = 1
+m = 3
+n = 7
 sol = Solution()
 res = sol.uniquePaths(m, n)
 print(res)
