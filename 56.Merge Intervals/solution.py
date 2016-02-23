@@ -34,15 +34,10 @@ class Solution(object):
             return intervals
         intervals.sort(key = lambda x: x.start)
         last = intervals[0]
-        i = 1
         res = []
-        while i < len(intervals):
-            if last.end >= intervals[i].start and \
-                    intervals[i].end >= last.start:
-                tmp = Interval()
-                tmp.end = max(last.end, intervals[i].end)
-                tmp.start = min(last.start, intervals[i].start)
-                last = tmp
+        for i in range(len(intervals)):
+            if last.end >= intervals[i].start:
+                last.end = max(last.end, intervals[i].end)
             else:
                 res.append(last)
                 last = intervals[i]
