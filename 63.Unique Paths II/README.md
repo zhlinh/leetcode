@@ -14,3 +14,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 56 ms
 ```
+
+第二版用了(m+1，n+1)维的DP矩阵，可以让代码更简洁，解决边界问题。
+
+时间复杂度为O(n * m)。
+
+submit的结果为:
+```
+43 / 43 test cases passed.
+Status: Accepted
+Runtime: 40 ms
+```
