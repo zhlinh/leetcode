@@ -27,25 +27,31 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        s = s.strip()
-        numberSeen, dotSeen, eSeen, numberAfterE = False, False, False, False
-        for i in range(len(s)):
-            c = s[i]
-            if c <= '9' and c >= '0':
-                numberSeen = True
-                numberAfterE = True
-            elif c == '.':
-                if dotSeen or eSeen:
-                    return False
-                dotSeen = True
-            elif c == 'e':
-                if eSeen or (not numberSeen):
-                    return False
-                eSeen = True
-                numberAfterE = False
-            elif c == '+' or c == '-':
-                if i != 0 and s[i-1] != 'e':
-                    return False
+        i = 0
+        while i < len(s) and s[i] == ' ':
+            i += 1
+        if i < len(s) and (s[i] == '+' or s[i] == '-'):
+            i += 1
+        n_dot, n_num = 0, 0
+        while i < len(s) and ((s[i] >= '0' and s[i] <= '9') or s[i] == '.'):
+            if s[i] == '.':
+                n_dot += 1
             else:
+                n_num += 1
+            i += 1
+        if n_dot > 1 or n_num < 1:
+            return False
+        if i < len(s) and s[i] == 'e':
+            i += 1
+            if i < len(s) and (s[i] == '+' or s[i] == '-'):
+                i += 1
+            n_num = 0
+            while i < len(s) and s[i] >= '0' and s[i] <= '9':
+                i += 1
+                n_num += 1
+            if n_num < 1:
                 return False
-        return numberSeen and numberAfterE
+        while i < len(s) and s[i] == ' ':
+            i += 1
+        return i == len(s)
+

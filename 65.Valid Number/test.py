@@ -3,7 +3,7 @@
 
 from solution import Solution
 
-s = "+.8"
+s = "1.e7"
 sol = Solution()
 res = sol.isNumber(s)
 print(res)
