@@ -27,31 +27,26 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        i = 0
-        while i < len(s) and s[i] == ' ':
-            i += 1
-        if i < len(s) and (s[i] == '+' or s[i] == '-'):
-            i += 1
-        n_dot, n_num = 0, 0
-        while i < len(s) and ((s[i] >= '0' and s[i] <= '9') or s[i] == '.'):
-            if s[i] == '.':
-                n_dot += 1
-            else:
-                n_num += 1
-            i += 1
-        if n_dot > 1 or n_num < 1:
-            return False
-        if i < len(s) and s[i] == 'e':
-            i += 1
-            if i < len(s) and (s[i] == '+' or s[i] == '-'):
-                i += 1
-            n_num = 0
-            while i < len(s) and s[i] >= '0' and s[i] <= '9':
-                i += 1
-                n_num += 1
-            if n_num < 1:
+        state = [{'b':0, 's':1, 'd':2, '.':3},
+                 {'d':2, '.':3},
+                 {'d':2, '.':4, 'e':5, 'b':8},
+                 {'d':4},
+                 {'d':4, 'e':5, 'b':8},
+                 {'s':6, 'd':7},
+                 {'d':7},
+                 {'d':7, 'b':8},
+                 {'b':8} ]
+        curState = 0
+        for c in s:
+            if c >= '0' and c <= '9':
+                c = 'd'
+            if c == '+' or c == '-':
+                c = 's'
+            if c == ' ':
+                c = 'b'
+            if c not in state[curState]:
                 return False
-        while i < len(s) and s[i] == ' ':
-            i += 1
-        return i == len(s)
-
+            curState = state[curState][c]
+        if curState not in [2, 4, 7, 8]:
+            return False
+        return True

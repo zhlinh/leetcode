@@ -29,3 +29,22 @@ submit的结果为:
 Status: Accepted
 Runtime: 80 ms
 ```
+
+第三版用了DFA(Deterministic Finite Automaton)有限自动机算法。
+
+状态机是字符串模式判定的常用方法。
+
+状态图为:
+
+![valid_number_dfa](valid_number_dfa.svg)
+
+代码中状态机的序号从0开始。
+
+时间复杂度为O(n)。
+
+submit的结果为:
+```
+1481 / 1481 test cases passed.
+Status: Accepted
+Runtime: 76 ms
+```
