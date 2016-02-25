@@ -26,19 +26,18 @@ class Solution(object):
         :type b: str
         :rtype: str
         """
-        na, nb = len(a), len(b)
-        max_len = max(na, nb)
+        i, j = len(a) - 1, len(b) - 1
+        if i < 0:
+            return b
+        if j < 0:
+            return a
         carry = 0
         sum_str = ""
-        for i in range(max_len):
-            tmp = 0
-            if na - 1 - i >= 0:
-                tmp += int(a[na-1-i])
-            if nb - 1 - i >= 0:
-                tmp += int(b[nb-1-i])
-            tmp += carry
-            carry = tmp // 2
-            sum_str = str(tmp % 2) + sum_str
-        if carry:
-            sum_str = "1" + sum_str
+        while i >= 0 or j >= 0 or carry:
+            rem = (i >= 0 and a[i] == '1') + (j >= 0 and b[j] == '1') + carry
+            carry = rem // 2
+            rem %= 2
+            sum_str = str(rem) + sum_str
+            i -= 1
+            j -= 1
         return sum_str
