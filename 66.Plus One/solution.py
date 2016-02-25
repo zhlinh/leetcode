@@ -25,14 +25,10 @@ class Solution(object):
         :rtype: List[int]
         """
         i = len(digits) - 1
-        digits[i] += 1
-        carry = digits[i] // 10
-        digits[i] %= 10
-        while i > 0 and carry:
+        while i >= 0:
+            if digits[i] < 9:
+                digits[i] += 1
+                return digits
+            digits[i] = 0
             i -= 1
-            digits[i] = digits[i] + carry
-            carry = digits[i] // 10
-            digits[i] %= 10
-        if i == 0 and carry:
-            digits.insert(0, carry)
-        return digits
+        return [1] + digits
