@@ -23,14 +23,14 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        maxN2 = n // 2
-        res = 1
-        for n2 in range(1, maxN2 + 1):
-            tmp = 1
-            n1 = n - 2 * n2
-            m = n1 + n2
-            k = min(n1, n2)
-            for j in range(1, k + 1):
-                tmp = tmp * (m - j + 1) // j
-            res += tmp
-        return res
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        n1, n2, nc = 1, 2, 0
+        for i in range(3, n + 1):
+            nc = n1 + n2
+            n1, n2 = n2, nc
+        return nc
