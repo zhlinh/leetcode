@@ -1,21 +1,21 @@
-第一版用了传统的加法思路。
+第一版就按照最大长度加前面几行，然后再添加最后一行。
 
-时间复杂度为O(n)。
-
-submit的结果为:
-```
-294 / 294 test cases passed.
-Status: Accepted
-Runtime: 69 ms
-```
-
-第二版将carry移至循环依据，可以精简代码。
-
-另外加了一些a或b为空时的判断，可以避免不必要的执行操作。
+时间复杂度为O(n^2)。
 
 submit的结果为:
 ```
-294 / 294 test cases passed.
+24 / 24 test cases passed.
 Status: Accepted
-Runtime: 56 ms
+Runtime: 52 ms
+```
+
+第二版用了一个List来存储到前一个为止的string，即先判断后添加。
+
+时间复杂度为O(n^2)。
+
+submit的结果为:
+```
+24 / 24 test cases passed.
+Status: Accepted
+Runtime: 48 ms
 ```

@@ -49,36 +49,24 @@ class Solution(object):
         :type maxWidth: int
         :rtype: List[str]
         """
-        nw, lw = 0, 0
+        nw = 0
         start = 0
-        curWidth = 0
-        res = []
-        for i in range(len(words)):
-            nw += 1
-            lw += len(words[i])
-            curWidth = lw + nw -1
-            if curWidth > maxWidth:
-                lastWidth = curWidth - len(words[i]) - 1
-                self.addLine(words, maxWidth, lastWidth, nw - 1, start, i - 1, res)
-                start = i
-                nw, lw = 1, len(words[i])
-        self.addLine(words, maxWidth, curWidth, nw, start, len(words) - 1, res)
+        cur, res = [], []
+        for word in words:
+            if len(cur) + nw + len(word) > maxWidth:
+                if len(cur) == 0:
+                    continue
+                elif len(cur) == 1:
+                    res.append(cur[0] + ' '*(maxWidth - nw))
+                else:
+                    evenSpace = (maxWidth - nw) // (len(cur) - 1)
+                    extraSpace = (maxWidth - nw) % (len(cur) - 1)
+                    for i in range(extraSpace):
+                        cur[i] += ' '
+                    res.append((' '*evenSpace).join(cur))
+                nw = 0
+                cur = []
+            cur.append(word)
+            nw += len(word)
+        res.append(' '.join(cur) + ' '*(maxWidth - (nw + len(cur) - 1)))
         return res
-
-    def addLine(self, words, maxWidth, width, nw, start, end, res):
-        if end != len(words) - 1:
-            evenSpace = (maxWidth - width) // (nw - (nw != 1))
-            extraSpace = (maxWidth - width) % (nw - (nw != 1))
-            print(evenSpace, extraSpace)
-        else:
-            evenSpace, extraSpace = 0, 0
-        tmp = ""
-        for j in range(start, end + 1):
-            if j == end:
-                tmp += words[j]
-            elif j < start + extraSpace:
-                tmp = tmp + words[j] + ' '*(evenSpace + 2)
-            else:
-                tmp = tmp + words[j] + ' '*(evenSpace + 1)
-        tmp = tmp + ' '*(maxWidth - len(tmp))
-        res.append(tmp)
