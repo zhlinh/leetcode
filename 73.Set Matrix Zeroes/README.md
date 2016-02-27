@@ -8,3 +8,21 @@ submit的结果为:
 Status: Accepted
 Runtime: 192 ms
 ```
+
+第二版还是2个双重循环，但没有用dict，真正的O(1) space。
+
+值得注意的是最后赋值的时候逆序开始。
+
+避免检查至第一行时，因col0=0而改变matrix[0][0]的值。
+
+进而会改变row0的值，即使第一行不为0的时候。
+
+进而会改变整个矩阵的值，故需要逆序[第一行，第一列存储状态]。
+
+
+submit的结果为:
+```
+157 / 157 test cases passed.
+Status: Accepted
+Runtime: 180 ms
+```
