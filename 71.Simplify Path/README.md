@@ -14,3 +14,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 68 ms
 ```
+
+第二版现在path后面添加/，这样就不用再另加代码判断最后一个字符串了。
+
+还精简了一些代码。添加的字符串不含/。最后整合时再添加。
+
+submit的结果为:
+```
+252 / 252 test cases passed.
+Status: Accepted
+Runtime: 72 ms
+```
