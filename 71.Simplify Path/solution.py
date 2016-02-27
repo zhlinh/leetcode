@@ -24,22 +24,13 @@ class Solution(object):
         :type path: str
         :rtype: str
         """
-        if not path:
-            return ""
-        tmp = ""
         res = []
-        path = path + "/"
-        for i in range(len(path)):
-            if path[i] == '/':
-                if tmp == "" or tmp == ".":
-                    tmp = ""
-                    continue
-                if tmp == "..":
-                    if len(res) > 0:
-                        res.pop()
-                else:
-                    res.append(tmp)
-                tmp = ""
+        for p in path.split("/"):
+            if p == "" or p == ".":
+                continue
+            elif p == "..":
+                if len(res) > 0:
+                    res.pop()
             else:
-                tmp += path[i]
-        return "/" + '/'.join(res)
+                res.append(p)
+        return "/" + "/".join(res)

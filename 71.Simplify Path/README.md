@@ -25,3 +25,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 72 ms
 ```
+
+第三版用了split(“/”)，然后发现快了不少。
+
+submit的结果为:
+```
+252 / 252 test cases passed.
+Status: Accepted
+Runtime: 52 ms
+```
