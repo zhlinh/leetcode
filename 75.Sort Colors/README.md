@@ -22,3 +22,15 @@ submit的结果为:
 86 / 86 test cases passed.
 Status: Accepted
 Runtime: 52 ms
+```
+
+第三版用了三个指针，记录当前0的数目，0和1的数目，0, 1 和2的数目。
+
+分别代表当前可选的0的位置，1的位置，2的位置。
+
+submit的结果为:
+```
+86 / 86 test cases passed.
+Status: Accepted
+Runtime: 80 ms
+```

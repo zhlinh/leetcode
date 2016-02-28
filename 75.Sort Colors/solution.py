@@ -28,13 +28,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        l, r = 0, len(nums) - 1
-        i = 0
-        while i <= r:
-            while i < r and nums[i] == 2:
-                nums[i], nums[r] = nums[r], nums[i]
-                r -= 1
-            while i > l and nums[i] == 0:
-                nums[i], nums[l] = nums[l], nums[i]
-                l += 1
-            i += 1
+        n0, n01, n012 = 0, 0, 0
+        for i in range(len(nums)):
+            print(n0, n01, n012)
+            if nums[i] == 0:
+                nums[n012] = 2
+                nums[n01] = 1
+                nums[n0] = 0
+                n0, n01, n012 = n0 + 1, n01 + 1, n012 + 1
+            elif nums[i] == 1:
+                nums[n012] = 2
+                nums[n01] = 1
+                n01, n012 = n01 + 1, n012 + 1
+            else:
+                nums[n012] = 2
+                n012 = n012 + 1
