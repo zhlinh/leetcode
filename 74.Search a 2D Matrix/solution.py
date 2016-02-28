@@ -39,24 +39,14 @@ class Solution(object):
         """
         if len(matrix) < 1:
             return False
-        il, ir = 0, len(matrix)
-        jl, jr = 0, len(matrix[0])
-        imid, jmid = 0, 0
-        while il < ir:
-            imid = (il + ir) // 2
-            if matrix[imid][0] == target:
+        m, n = len(matrix), len(matrix[0])
+        l, r = 0, m * n - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if matrix[mid//n][mid%n] == target:
                 return True
-            elif matrix[imid][0] < target:
-                il = imid + 1
+            elif matrix[mid//n][mid%n] > target:
+                r = mid - 1
             else:
-                ir = imid
-        imid = il - 1
-        while jl < jr:
-            jmid = (jl + jr) // 2
-            if matrix[imid][jmid] == target:
-                return True
-            elif matrix[imid][jmid] < target:
-                jl = jmid + 1
-            else:
-                jr = jmid
+                l = mid + 1
         return False
