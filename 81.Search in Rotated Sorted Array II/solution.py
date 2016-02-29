@@ -26,18 +26,23 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        start = 1
-        while start < len(nums) and nums[start] >= nums[start-1]:
-            start += 1
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            mid = (l + r) // 2
-            realmid = (start + mid) % len(nums)
-            if nums[realmid] == target:
+        lo, hi = 0, len(nums) - 1
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            if nums[mid] == target:
                 return True
-            elif nums[realmid] > target:
-                r -= 1
+            # trickly case
+            if nums[mid] == nums[lo] == nums[hi]:
+                lo += 1
+                hi -= 1
+            elif nums[mid] > nums[hi]:
+                if nums[lo] <= target < nums[mid]:
+                    hi = mid - 1
+                else:
+                    lo = mid + 1
             else:
-                l += 1
+                if nums[mid] < target <= nums[hi]:
+                    lo = mid + 1
+                else:
+                    hi = mid - 1
         return False
-
