@@ -28,15 +28,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        dic = {}
         res = 0
         for i in range(len(nums)):
-            if nums[i] not in dic:
-                dic[nums[i]] = 1
-                nums[res] = nums[i]
-                res += 1
-            elif dic[nums[i]] == 1:
-                dic[nums[i]] += 1
+            if res < 2 or nums[i] > nums[res-2]:
                 nums[res] = nums[i]
                 res += 1
         return res
+
