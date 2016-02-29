@@ -38,9 +38,10 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         nums.sort()
-        results = [[]]
+        n = 2 ** len(nums)
+        results = [[] for _ in range(n)]
         for i in range(len(nums)):
-            n = len(results)
             for j in range(n):
-                results.append(results[j] + [nums[i]])
+                if (j >> i) & 1:
+                    results[j].append(nums[i])
         return results
