@@ -37,14 +37,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        result, results = [], [[]]
         nums.sort()
-        self.dfs(nums, 0, result, results)
+        results = [[]]
+        for i in range(len(nums)):
+            n = len(results)
+            for j in range(n):
+                results.append(results[j] + [nums[i]])
         return results
-
-    def dfs(self, nums, start, result, results):
-        if start > len(nums) - 1:
-            return
-        for i in range(start, len(nums)):
-            results.append(result + [nums[i]])
-            self.dfs(nums, i + 1, result + [nums[i]], results)
