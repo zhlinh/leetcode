@@ -32,21 +32,14 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        dummy = l = ListNode('*')
+        dummy = l = ListNode(0)
         dummy.next = p = head
-        pre = l.val
         while p:
-            if not p.next:
-                if p.val == pre:
-                    l.next = None
-                else:
-                    l.next = p
+            while p.next and p.val == p.next.val:
                 p = p.next
-            elif p.val != p.next.val and p.val != pre:
-                l.next = p
-                p = p.next
+            if l.next == p:
                 l = l.next
             else:
-                pre = p.val
-                p = p.next
+                l.next = p.next
+            p = p.next
         return dummy.next

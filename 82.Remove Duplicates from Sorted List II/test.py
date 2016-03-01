@@ -28,7 +28,7 @@ def lsListNode(head):
     return rList
 
 #  inpt = mkListNode([1, 2, 3, 3, 4, 4, 5])
-inpt = mkListNode([1, 1, 1, 2, 3])
+inpt = mkListNode([1, 1, 1])
 sol = Solution()
 res = sol.deleteDuplicates(inpt)
 print(lsListNode(res))
