@@ -24,30 +24,21 @@ class Solution(object):
         if len(matrix) < 1:
             return 0
         m, n = len(matrix), len(matrix[0])
-        left = [0 for _ in range(n)]
-        right = [n for _ in range(n)]
-        height = [0 for _ in range(n)]
+        height = [0 for _ in range(n + 1)]
+        stack = []
         maxA = 0
         for i in range(m):
-            cur_left, cur_right = 0, n
-            # height
-            for j in range(n):
-                if matrix[i][j] == '1':
-                    height[j] += 1
-                else:
-                    height[j] = 0
-            # left
-            for j in range(n):
-                if matrix[i][j] == '1':
-                    left[j] = max(left[j], cur_left)
-                else:
-                    left[j], cur_left = 0, j + 1
-            # right
-            for j in range(n-1, -1, -1):
-                if matrix[i][j] == '1':
-                    right[j] = min(right[j], cur_right)
-                else:
-                    right[j], cur_right = n, j
-            for j in range(n):
-                maxA = max(maxA, (right[j] - left[j]) * height[j])
+            # height, n + 1
+            stack = []
+            for j in range(n + 1):
+                if j < n:
+                    if matrix[i][j] == '1':
+                        height[j] += 1
+                    else:
+                        height[j] = 0
+                while stack and height[stack[-1]] >= height[j]:
+                    h = height[stack.pop()]
+                    l = (j - stack[-1] - 1) if stack else j
+                    maxA = max(maxA, (h * l))
+                stack.append(j)
         return maxA

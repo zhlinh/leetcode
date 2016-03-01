@@ -14,3 +14,18 @@ submit的结果为:
 Status: Accepted
 Runtime: 160 ms
 ```
+
+第二版用的是上一题Largest Rectangle in Histogram的思路。
+
+只需要维护本行的一个height。
+
+值得注意的是height的长度为n + 1，最后一个元素为0。
+
+另外stack在每次新的一行时需要清空。
+
+submit的结果为:
+```
+65 / 65 test cases passed.
+Status: Accepted
+Runtime: 156 ms
+```
