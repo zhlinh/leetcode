@@ -31,17 +31,16 @@ class Solution(object):
         :type n: int
         :rtype: void Do not return anything, modify nums1 in-place instead.
         """
-        for i in reversed(range(m)):
-            nums1[i+n] = nums1[i]
-        p, p1, p2 = 0, n, 0
-        while p2 < n:
-            if p1 >= n + m:
-                nums1[p] = nums2[p2]
-                p2 += 1
-            elif nums1[p1] < nums2[p2]:
+        p, p1, p2 = m + n - 1, m - 1, n - 1
+        while p2 >= 0 and p1 >= 0:
+            if nums1[p1] > nums2[p2]:
                 nums1[p] = nums1[p1]
-                p1 += 1
+                p1 -= 1
             else:
                 nums1[p] = nums2[p2]
-                p2 += 1
-            p += 1
+                p2 -= 1
+            p -= 1
+        while p2 >= 0:
+            nums1[p] = nums2[p2]
+            p2 -= 1
+            p -= 1

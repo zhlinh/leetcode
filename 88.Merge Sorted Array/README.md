@@ -8,3 +8,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 44 ms
 ```
+
+第二版的思路是从后面一个开始添加，这样就不用初始化地移动了。
+
+submit的结果为:
+```
+59 / 59 test cases passed.
+Status: Accepted
+Runtime: 52 ms
+```
