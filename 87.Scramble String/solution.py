@@ -64,26 +64,15 @@ class Solution(object):
         :type s2: str
         :rtype: bool
         """
-        return self.helper(s1, s2)
-
-    def helper(self, s1, s2):
-        if len(s1) != len(s2):
+        m, n = len(s1), len(s2)
+        if m != n or sorted(s1) != sorted(s2):
             return False
-        if s1 == s2:
+        # when m < 4, it only need sorted(s1) == sorted(s2)
+        if m < 4 or s1 == s2:
             return True
-        # avoid LTE
-        count = [0 for _ in range(26)]
-        for i in range(len(s1)):
-            count[ord(s1[i])-ord('a')] += 1
-            count[ord(s2[i])-ord('a')] -= 1
-        for i in range(26):
-            if count[i] != 0:
-                return False
-        for i in range(1, len(s1)):
-            if self.helper(s1[:i], s2[:i]) \
-               and self.helper(s1[i:], s2[i:]):
-                return True
-            if self.helper(s1[:i], s2[len(s1)-i:]) \
-                    and self.helper(s1[i:], s2[:len(s1)-i]):
+        f = self.isScramble
+        for i in range(1, n):
+            if f(s1[:i], s2[:i]) and f(s1[i:], s2[i:]) or \
+                f(s1[:i], s2[-i:]) and f(s1[i:], s2[:-i]):
                 return True
         return False
