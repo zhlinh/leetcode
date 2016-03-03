@@ -35,31 +35,13 @@ class Solution(object):
         """
         if not s or s[0] == '0':
             return 0
-        dp = [0 for _ in range(len(s) + 2)]
-        dp[0], dp[1] = 1, 2
-        start = 2
-        i = 0
-        res = 1
-        while i < len(s):
-            count = 0
-            if i > 0 and s[i] == '0' and s[i-1] not in ['1', '2']:
-                return 0
-            while i < len(s) and (s[i] == '1' or s[i] == '2'):
-                count += 1
-                i += 1
-            if i < len(s) and s[i] == '0':
-                count -= 2
-            if i == len(s) or (i > 0 and s[i-1] == '2' and s[i] in ['7', '8', '9']):
-                count -= 1
-            if count > 0:
-                res *= self.dpHelper(dp, count, start)
-            i += 1
-        return res
-
-    def dpHelper(self, dp, n, start):
-        if n < start:
-            return dp[n]
-        for i in range(start, n + 1):
-            dp[i] = dp[i-1] + dp[i-2]
-        start = n
-        return dp[n]
+        dp0, dp1 = 1, 1
+        for i in range(1, len(s)):
+            if s[i] == '0':
+                dp1 = 0
+            if s[i-1] == '1' or (s[i-1] == '2' and s[i] <= '6' ):
+                dp1 = dp0 + dp1
+                dp0 = dp1 - dp0
+            else:
+                dp0 = dp1
+        return dp1
