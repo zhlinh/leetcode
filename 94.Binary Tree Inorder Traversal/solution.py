@@ -41,15 +41,14 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        if not root:
-            return []
+        stack = []
+        cur = root
         res = []
-        self.helper(root, res)
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            res.append(cur.val)
+            cur = cur.right
         return res
-
-    def helper(self, p, res):
-        if not p:
-            return
-        self.helper(p.left, res)
-        res.append(p.val)
-        self.helper(p.right, res)

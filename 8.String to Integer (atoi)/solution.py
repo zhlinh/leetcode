@@ -45,7 +45,7 @@ class Solution(object):
         :type str: str
         :rtype: int
         """
-        min, max = ord('0'), ord('9')
+        mini, maxi = ord('0'), ord('9')
         outi = 0
         s = 1
         start = 0
@@ -60,8 +60,8 @@ class Solution(object):
                     s = -1
                     continue
             num = ord(str[i])
-            if num >= min and num <= max:
-                num = num - min
+            if num >= mini and num <= maxi:
+                num = num - mini
                 outi = outi * 10 + num
             else:
                 break
