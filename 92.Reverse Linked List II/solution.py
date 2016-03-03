@@ -38,28 +38,15 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        dummyl = l = ListNode(0)
-        dummyl.next = p = head
-        i = 1
-        while p and i <= n:
-            if i == m - 1:
-                l = p
-                p = p.next
-            elif i == m:
-                dummyr = r = p
-                p = p.next
-            elif m < i < n:
-                tmp = p
-                p = p.next
-                tmp.next = r
-                r = tmp
-            elif i == n:
-                tmp = p
-                p = p.next
-                dummyr.next = p
-                tmp.next = r
-                l.next = tmp
-            else:
-                p = p.next
-            i += 1
-        return dummyl.next
+        dummy = pre = ListNode(0)
+        dummy.next = head
+        for i in range(m-1):
+            pre = pre.next
+        start = pre.next
+        then = start.next
+        for i in range(n - m):
+            start.next = then.next
+            then.next = pre.next
+            pre.next = then
+            then = start.next
+        return dummy.next
