@@ -14,3 +14,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 44 ms
 ```
+
+第二版用了DP，居然一开始没有想到用这个。
+
+需要注意的是一开始要判断s3的长度是否等于s1和s2的长度之和。
+
+很容易理解，不过速度比第一版慢多了。
+
+submit的结果为:
+```
+101 / 101 test cases passed.
+Status: Accepted
+Runtime: 44 ms
+```

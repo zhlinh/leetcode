@@ -33,18 +33,18 @@ class Solution(object):
         """
         if len(s1) + len(s2) != len(s3):
             return False
-        visted = {}
-        return self.helper(visted, s1, s2, s3, 0, 0, 0)
+        dp = [[False for _ in range(len(s2) + 1)] for __ in range(len(s1) + 1)]
+        for i in range(len(s1) + 1):
+            for j in range(len(s2) + 1):
+                if i == 0 and j == 0:
+                    dp[i][j] = True
+                elif i == 0:
+                    dp[i][j] = dp[i][j-1] and s2[j-1] == s3[i+j-1]
+                elif j == 0:
+                    dp[i][j] = dp[i-1][j] and s1[i-1] == s3[i+j-1]
+                else:
+                    dp[i][j] = (dp[i][j-1] and s2[j-1] == s3[i+j-1]) or \
+                               (dp[i-1][j] and s1[i-1] == s3[i+j-1])
+        return dp[-1][-1]
 
-    def helper(self, visted, s1, s2, s3, p1, p2, p3):
-        hashcode = p1 * len(s3) + p2
-        if hashcode in visted:
-            return False
-        if p1 >= len(s1):
-            return s2[p2:] == s3[p3:]
-        if p2 >= len(s2):
-            return s1[p1:] == s3[p3:]
-        res = (s1[p1] == s3[p3] and self.helper(visted, s1, s2, s3, p1 + 1, p2, p3 + 1)) or \
-              (s2[p2] == s3[p3] and self.helper(visted, s1, s2, s3, p1, p2 + 1, p3 + 1))
-        visted[hashcode] = 1
-        return res
+
