@@ -31,20 +31,21 @@ class Solution(object):
         :type s3: str
         :rtype: bool
         """
-        if len(s1) + len(s2) != len(s3):
+        l1, l2, l3 = len(s1), len(s2), len(s3)
+        if l1 + l2 != l3:
             return False
-        dp = [[False for _ in range(len(s2) + 1)] for __ in range(len(s1) + 1)]
-        for i in range(len(s1) + 1):
-            for j in range(len(s2) + 1):
-                if i == 0 and j == 0:
-                    dp[i][j] = True
-                elif i == 0:
-                    dp[i][j] = dp[i][j-1] and s2[j-1] == s3[i+j-1]
-                elif j == 0:
-                    dp[i][j] = dp[i-1][j] and s1[i-1] == s3[i+j-1]
-                else:
-                    dp[i][j] = (dp[i][j-1] and s2[j-1] == s3[i+j-1]) or \
-                               (dp[i-1][j] and s1[i-1] == s3[i+j-1])
-        return dp[-1][-1]
-
-
+        visted = {}
+        q = [(0, 0)]
+        while q:
+            x, y = q.pop(0)
+            if x + y == l3:
+                return True
+            hash_down = (x + 1) * l3 + y
+            hash_right = x * l3 + (y + 1)
+            if x < l1 and s1[x] == s3[x+y] and hash_down not in visted:
+                q.append((x + 1, y))
+                visted[hash_down] = 1
+            if y < l2 and s2[y] == s3[x+y] and hash_right not in visted:
+                q.append((x, y + 1))
+                visted[hash_right] = 1
+        return False
