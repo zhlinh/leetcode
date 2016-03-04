@@ -42,26 +42,26 @@ class Solution(object):
         """
         if n < 1:
             return []
-        trees = self.helper(1, n)
-        return trees
+        dp = []
+        dp.append([None])
+        for i in range(1, n + 1):
+            trees = []
+            for j in range(i):
+                left = dp[j]
+                right = dp[i - j - 1]
+                for lnode in left:
+                    for rnode in right:
+                        root = TreeNode(j + 1)
+                        root.left = lnode
+                        root.right = self.cloneAfterAddNum(rnode, j + 1)
+                        trees.append(root)
+            dp.append(trees)
+        return dp[n]
 
-    def helper(self, start, end):
-        trees = []
-        if start > end:
-            trees.append(None)
-            return trees
-        if start == end:
-            trees.append(TreeNode(start))
-            return trees
-        left = []
-        right = []
-        for i in range(start, end + 1):
-            left = self.helper(start, i - 1)
-            right = self.helper(i + 1, end)
-            for lnode in left:
-                for rnode in right:
-                    root = TreeNode(i)
-                    root.left = lnode
-                    root.right = rnode
-                    trees.append(root)
-        return trees
+    def cloneAfterAddNum(self, node, offset):
+        if not node:
+            return None
+        newNode = TreeNode(node.val + offset)
+        newNode.left = self.cloneAfterAddNum(node.left, offset)
+        newNode.right = self.cloneAfterAddNum(node.right, offset)
+        return newNode

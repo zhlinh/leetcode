@@ -18,3 +18,21 @@ submit的结果为:
 Status: Accepted
 Runtime: 100 ms
 ```
+
+
+第二版用了DP的方法。
+
+初始化dp[0] = [None]。还需另外加判断n=0时返回[]，木有办法不然会返回[[]]。
+
+即dp[i]可由本元素j + 1、左子树dp[j]和右子树dp[i-j-1]组成。
+
+需要注意的是右子树dp[i-j-1]结构不变，但数值需要都加上j+1，才满足右边较大的条件。
+
+j的范围从0到i-1遍历。
+
+submit的结果为:
+```
+9 / 9 test cases passed.
+Status: Accepted
+Runtime: 96 ms
+```
