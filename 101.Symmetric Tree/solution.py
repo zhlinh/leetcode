@@ -47,11 +47,21 @@ class Solution(object):
         """
         if not root:
             return True
-        return self.helper(root.left, root.right)
-
-    def helper(self, l, r):
-        if not l or not r:
-            return l== r
-        if l.val == r.val:
-            return self.helper(l.left, r.right) and self.helper(l.right, r.left)
-        return False
+        stack = []
+        l = root.left
+        r = root.right
+        while stack or (l and r):
+            while l and r:
+                if l.val != r.val:
+                    return False
+                stack.append(r)
+                stack.append(l)
+                l = l.left
+                r = r.right
+            if l != r:
+                return False
+            l = stack.pop()
+            r = stack.pop()
+            l = l.right
+            r = r.left
+        return l == r
