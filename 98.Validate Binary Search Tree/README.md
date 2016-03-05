@@ -12,3 +12,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 76 ms
 ```
+
+第二版用了一个pre记录上一个节点，可以让代码更简洁。
+
+submit的结果为:
+```
+74 / 74 test cases passed.
+Status: Accepted
+Runtime: 68 ms
+```

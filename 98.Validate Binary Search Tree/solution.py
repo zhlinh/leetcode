@@ -39,18 +39,14 @@ class Solution(object):
             return True
         stack = []
         cur = root
-        init = 1
+        pre = None
         while stack or cur:
             while cur:
                 stack.append(cur)
                 cur = cur.left
             cur = stack.pop()
-            if init:
-                lastval = cur.val
-                init = 0
-            else:
-                if cur.val <= lastval:
-                    return False
-            lastval = cur.val
+            if pre != None and cur.val <= pre.val:
+                return False
+            pre = cur
             cur = cur.right
         return True
