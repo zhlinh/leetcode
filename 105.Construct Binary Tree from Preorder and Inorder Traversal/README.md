@@ -14,3 +14,14 @@ subimt的结果为:
 Status: Accepted
 Runtime: 432 ms
 ```
+
+第二版用了一个dic来存储inoder的index，方便查找所在位置。将查找的O(n)降为O(1)。
+
+当然需要先初始化dic。
+
+subimt的结果为:
+```
+202 / 202 test cases passed.
+Status: Accepted
+Runtime: 80 ms
+```
