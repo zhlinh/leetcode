@@ -45,18 +45,18 @@ class Solution(object):
         """
         if not root:
             return []
-        q = [root]
-        cur = None
-        levels = []
-        while q:
-            n = len(q)
-            level = []
-            for i in range(n):
-                cur = q.pop(0)
-                level.append(cur.val)
-                if cur.left:
-                    q.append(cur.left)
-                if cur.right:
-                    q.append(cur.right)
-            levels.append(level)
-        return levels
+        results = []
+        self.helper(root, 0, results)
+        return results
+
+    def helper(self, node, depth, results):
+        if not node:
+            return
+        if depth >= len(results):
+            results.append([])
+        results[depth] += [node.val]
+        if node.left:
+            self.helper(node.left, depth + 1, results)
+        if node.right:
+            self.helper(node.right, depth + 1, results)
+

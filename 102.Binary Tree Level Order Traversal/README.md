@@ -12,3 +12,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 52 ms
 ```
+
+第二版用了DFS。
+
+将每个元素加入到对应的层级中，进入新的更深的一层则先扩充List。
+
+submit的结果为:
+```
+34 / 34 test cases passed.
+Status: Accepted
+Runtime: 56 ms
+```
