@@ -55,12 +55,13 @@ class Solution(object):
             order = (order + 1) % 2
             for i in range(n):
                 cur = q.pop(0)
-                level.append(cur.val)
+                if order:
+                    level.insert(0, cur.val)
+                else:
+                    level.append(cur.val)
                 if cur.left:
                     q.append(cur.left)
                 if cur.right:
                     q.append(cur.right)
-            if order:
-                level = level[::-1]
             levels.append(level)
         return levels
