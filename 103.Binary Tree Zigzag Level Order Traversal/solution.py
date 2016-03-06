@@ -46,22 +46,27 @@ class Solution(object):
         """
         if not root:
             return []
-        q = [root]
+        q1 = [root]
+        q2 = []
         levels = []
-        order = 1
-        while q:
+        while q1:
             level = []
-            n = len(q)
-            order = (order + 1) % 2
-            for i in range(n):
-                cur = q.pop(0)
-                if order:
-                    level.insert(0, cur.val)
-                else:
-                    level.append(cur.val)
+            while q1:
+                cur = q1.pop()
+                level.append(cur.val)
                 if cur.left:
-                    q.append(cur.left)
+                    q2.append(cur.left)
                 if cur.right:
-                    q.append(cur.right)
+                    q2.append(cur.right)
             levels.append(level)
+            level = []
+            while q2:
+                cur = q2.pop()
+                level.append(cur.val)
+                if cur.right:
+                    q1.append(cur.right)
+                if cur.left:
+                    q1.append(cur.left)
+            if level:
+                levels.append(level)
         return levels
