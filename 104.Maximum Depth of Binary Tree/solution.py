@@ -32,14 +32,4 @@ class Solution(object):
         """
         if not root:
             return 0
-        maxdepth = [1]
-        self.dfs(root, 1, maxdepth)
-        return maxdepth[0]
-
-    def dfs(self, node, depth, maxdepth):
-        if depth > maxdepth[0]:
-            maxdepth[0] = depth
-        if node.left:
-            self.dfs(node.left, depth + 1, maxdepth)
-        if node.right:
-            self.dfs(node.right, depth + 1, maxdepth)
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
