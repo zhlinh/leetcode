@@ -28,13 +28,26 @@ class Solution(object):
         :type nums: List[int]
         :rtype: TreeNode
         """
-        return self.helper(0, len(nums) - 1, nums)
-
-    def helper(self, start, end, nums):
-        if start > end:
+        if not nums:
             return None
-        index = (start + end) // 2
-        root = TreeNode(nums[index])
-        root.left = self.helper(start, index - 1, nums)
-        root.right = self.helper(index + 1, end, nums)
+        root = TreeNode(0)
+        stack = [root]
+        leftStack = [0]
+        rightStack = [len(nums) - 1]
+        while stack:
+            cur = stack.pop()
+            l = leftStack.pop()
+            r = rightStack.pop()
+            mid = l + (r - l) // 2
+            cur.val = nums[mid]
+            if l <= mid - 1:
+                cur.left = TreeNode(0)
+                stack.append(cur.left)
+                leftStack.append(l)
+                rightStack.append(mid - 1)
+            if mid + 1 <= r:
+                cur.right = TreeNode(0)
+                stack.append(cur.right)
+                leftStack.append(mid + 1)
+                rightStack.append(r)
         return root
