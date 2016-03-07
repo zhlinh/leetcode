@@ -32,20 +32,23 @@ class Solution(object):
         :type postorder: List[int]
         :rtype: TreeNode
         """
-        dic = {}
-        for i in range(len(inorder)):
-            dic[inorder[i]] = i
-        return self.helper(len(postorder) - 1, 0, len(inorder) - 1, \
-                inorder, postorder, dic)
-
-    def helper(self, postEnd, inStart, inEnd, inorder, postorder, dic):
-        if postEnd < 0 or inStart > inEnd:
-            return
-        root = TreeNode(postorder[postEnd])
-        inIndex = dic[root.val]
-        rightLen = inEnd - inIndex
-        root .right = self.helper(postEnd - 1, inIndex + 1, inEnd, \
-                inorder, postorder, dic)
-        root.left = self.helper(postEnd - rightLen - 1, inStart, inIndex - 1, \
-                inorder, postorder, dic)
+        if not postorder:
+            return None
+        n = len(postorder)
+        root = TreeNode(postorder[n-1])
+        stack = [root]
+        inindex = n - 1
+        for i in reversed(range(n - 1)):
+            if stack and stack[-1].val != inorder[inindex]:
+                cur = stack[-1]
+                cur.right = TreeNode(postorder[i])
+                stack.append(cur.right)
+            else:
+                while stack and stack[-1].val == inorder[inindex]:
+                    cur = stack[-1]
+                    stack.pop()
+                    inindex -= 1
+                if inindex >= 0:
+                    cur.left = TreeNode(postorder[i])
+                    stack.append(cur.left)
         return root
