@@ -15,7 +15,9 @@ Status: Accepted
 Runtime: 432 ms
 ```
 
-第二版用了一个dic来存储inoder的index，方便查找所在位置。将查找的O(n)降为O(1)。
+第二版改进了下第一版。
+
+用了一个dic来存储inoder的index，方便查找所在位置。将查找的O(n)降为O(1)。
 
 当然需要先初始化dic。
 
@@ -24,4 +26,19 @@ subimt的结果为:
 202 / 202 test cases passed.
 Status: Accepted
 Runtime: 80 ms
+```
+
+第三版用了循环的方法。比递归法要快。不过可能理解起来需要点时间。
+
+以preorder作为主循环。
+
+用了一个stack存preinoder的之前节点，用了一个int存inordr的当前位置。
+
+相当赞的思路。
+
+subimt的结果为:
+```
+202 / 202 test cases passed.
+Status: Accepted
+Runtime: 60 ms
 ```

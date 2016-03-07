@@ -32,18 +32,23 @@ class Solution(object):
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        dic = {}
-        for i in range(len(inorder)):
-            dic[inorder[i]] = i
-        return self.helper(0, 0, len(inorder) - 1, preorder, inorder, dic)
-
-    def helper(self, preStart, inStart, inEnd, preorder, inorder, dic):
-        if preStart >= len(preorder) or inStart > inEnd:
+        if not preorder:
             return None
-        root = TreeNode(preorder[preStart])
-        inIndex = dic[root.val]
-        root.left = self.helper(preStart + 1, inStart, inIndex - 1, \
-                preorder, inorder, dic)
-        root.right = self.helper(preStart + inIndex - inStart + 1, \
-                inIndex + 1, inEnd, preorder, inorder, dic)
+        root = TreeNode(preorder[0])
+        stack = [root]
+        inindex = 0
+        for i in range(1, len(preorder)):
+            if stack and stack[-1].val != inorder[inindex]:
+                cur = stack[-1]
+                cur.left = TreeNode(preorder[i])
+                stack.append(cur.left)
+            else:
+                while stack and stack[-1].val == inorder[inindex]:
+                    cur = stack[-1]
+                    stack.pop()
+                    inindex += 1
+                if inindex < len(inorder):
+                    cur.right = TreeNode(preorder[i])
+                    stack.append(cur.right)
         return root
+
