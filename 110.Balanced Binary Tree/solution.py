@@ -31,15 +31,17 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        if not root:
-            return True
-        if abs(self.helper(root.left) - self.helper(root.right)) <= 1:
-            return self.isBalanced(root.left) and self.isBalanced(root.right)
-        return False
+        return self.helper(root) != -1
 
     def helper(self, root):
         if not root:
             return 0
         ld = self.helper(root.left)
+        if ld == -1:
+            return -1
         rd = self.helper(root.right)
+        if rd == -1:
+            return -1
+        if abs(ld - rd) > 1:
+            return -1
         return 1 + max(ld, rd)
