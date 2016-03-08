@@ -34,20 +34,21 @@ class Solution(object):
         :type head: ListNode
         :rtype: TreeNode
         """
-        if not head:
+        p = head
+        n = 0
+        while p:
+            p = p.next
+            n += 1
+        cur = [head]
+        return self.helper(cur, n)
+
+    def helper(self, cur, n):
+        if n <= 0:
             return None
-        slow = head
-        fast = head
-        pre = None
-        while fast != None and fast.next != None:
-            fast = fast.next.next
-            pre = slow
-            slow = slow.next
-        root = TreeNode(slow.val)
-        if pre == None:
-            head = None
-        else:
-            pre.next = None
-        root.left = self.sortedListToBST(head)
-        root.right = self.sortedListToBST(slow.next)
+        root = TreeNode(0)
+        root.left = self.helper(cur, n // 2)
+        root.val = cur[0].val
+        cur[0] = cur[0].next
+        root.right = self.helper(cur, n - (n // 2) - 1)
         return root
+
