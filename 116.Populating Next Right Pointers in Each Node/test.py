@@ -49,7 +49,7 @@ def printTree(root, indent):
     printNode(root, indent)
     printTree(root.left, indent + 1)
 
-root = createTree("1, 2, 5, 3, 4, #, 6")
+root = createTree("1, 2, 5, 3, 4, 6, 7")
 #  printTree(root, 0)
 sol = Solution()
 sol.connect(root)

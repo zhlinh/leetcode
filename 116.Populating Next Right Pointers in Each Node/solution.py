@@ -59,16 +59,13 @@ class Solution(object):
         """
         if not root:
             return
-        q = [root]
-        while q:
-            w = len(q)
-            pre = None
-            for i in range(w):
-                cur = q.pop(0)
-                if pre:
-                    pre.next = cur
-                pre = cur
-                if cur.left:
-                    q.append(cur.left)
-                if cur.right:
-                    q.append(cur.right)
+        pre = root
+        cur = None
+        while pre.left:
+            cur = pre
+            while cur:
+                cur.left.next = cur.right
+                if cur.next:
+                    cur.right.next = cur.next.left
+                cur = cur.next
+            pre = pre.left
