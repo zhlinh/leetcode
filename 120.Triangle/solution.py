@@ -37,17 +37,8 @@ class Solution(object):
         :type triangle: List[List[int]]
         :rtype: int
         """
-        if not triangle:
-            return 0
-        dp = [0 for _ in range(len(triangle[-1]))]
-        dp[0] = triangle[0][0]
-        for i in range(1, len(triangle)):
-            n = len(triangle[i])
-            for j in reversed(range(n)):
-                if j == 0:
-                    dp[j] = triangle[i][0] + dp[0]
-                elif j == n - 1:
-                    dp[j] = triangle[i][j] + dp[j-1]
-                else:
-                    dp[j] = triangle[i][j] + min(dp[j], dp[j-1])
-        return min(dp)
+        dp = triangle[-1]
+        for i in reversed(range(len(triangle) - 1)):
+            for j in range(i + 1):
+                dp[j] = triangle[i][j] + min(dp[j], dp[j+1])
+        return dp[0]
