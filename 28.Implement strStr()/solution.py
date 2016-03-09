@@ -26,16 +26,16 @@ class Solution(object):
         """
         if not needle:
             return 0
-        i, j, m, n = -1, 0, len(haystack), len(needle)
+        i, j, m, n = 0, -1, len(haystack), len(needle)
         next = [-1] * n
         # prefix for next[]
-        while j < n - 1:
-            if i == -1 or needle[j] == needle[i]:
+        while i < n - 1:
+            if j == -1 or needle[j] == needle[i]:
                 i += 1
                 j += 1
-                next[j] = i
+                next[i] = j
             else:
-                i = next[i]
+                j = next[j]
         # start checking
         i = j = 0
         while i < m and j < n:
