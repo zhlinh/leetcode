@@ -28,10 +28,7 @@ class Solution(object):
         """
         res = [0 for _ in range(rowIndex + 1)]
         res[0] = 1
-        for n in range(1, rowIndex + 2):
-            pre = 0
-            for i in range(n):
-                tmp = res[i]
-                res[i] += pre
-                pre = tmp
+        for i in range(1, rowIndex + 1):
+            for j in range(i, 0, -1):
+                res[j] += res[j-1]
         return res

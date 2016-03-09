@@ -7,3 +7,13 @@
 Status: Accepted
 Runtime: 44 ms
 ```
+
+第二版是最后一个元素开始到第二个元素为止。
+
+然后就可以不用用另外的变量记录当前元素。
+
+```
+34 / 34 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```
