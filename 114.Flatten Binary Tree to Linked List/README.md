@@ -11,3 +11,16 @@
 Status: Accepted
 Runtime: 57 ms
 ```
+
+第二版用的递归，和第一版的思路一样，也是右-中-左。
+
+值得注意的是需要在每次进入口函数的时候赋pre为None，因类变量或实例变量会有记忆。
+
+当然你也可以每解一次就新建一个类。
+
+
+```
+225 / 225 test cases passed.
+Status: Accepted
+Runtime: 52 ms
+```
