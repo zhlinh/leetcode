@@ -25,9 +25,13 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        minPrice = 2 ** 31 - 1
+        dp = 0
         maxProfit = 0
-        for i in range(len(prices)):
-            minPrice = min(minPrice, prices[i])
-            maxProfit = max(maxProfit, prices[i] - minPrice)
+        for i in range(1, len(prices)):
+            diff = prices[i] - prices[i-1]
+            if dp < 0:
+                dp = diff
+            else:
+                dp += diff
+            maxProfit = max(maxProfit, dp)
         return maxProfit
