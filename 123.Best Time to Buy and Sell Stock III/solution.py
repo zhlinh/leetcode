@@ -27,12 +27,14 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        hold1, release1, hold2, release2 = -2 ** 31, 0, -2 ** 31, 0
-        for price in prices:
-        # The order could be changed,
-        # because the following operations can be done in one day.
-            release2 = max(release2, hold2 + price)
-            hold2 = max(hold2, release1 - price)
-            release1 = max(release1, hold1 + price)
-            hold1 = max(hold1, -price)
-        return release2
+        n = len(prices)
+        if n == 0:
+            return 0
+        dp = [0 for _ in range(n)]
+        num = 2
+        for i in range(1, num + 1):
+            hold = -2 ** 31
+            for j in range(n):
+                hold = max(hold, dp[j] - prices[j])
+                dp[j] = max(dp[j-1], hold + prices[j])
+        return dp[-1]
