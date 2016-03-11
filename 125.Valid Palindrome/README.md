@@ -10,3 +10,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 152 ms
 ```
+
+第二版使用了内建函数。isalnum()和lower()。
+
+时间复杂度为O(n)。
+
+submit的结果为:
+```
+92 / 92 test cases passed.
+Status: Accepted
+Runtime: 100 ms
+```

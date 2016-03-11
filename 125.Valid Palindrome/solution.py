@@ -35,32 +35,12 @@ class Solution(object):
         i = 0
         j = len(s) - 1
         while i < j:
-            while i < j and not self.isAlpha(s[i]) and not self.isNumeric(s[i]):
+            while i < j and not s[i].isalnum():
                 i += 1
-            while i < j and not self.isAlpha(s[j]) and not self.isNumeric(s[j]):
+            while i < j and not s[j].isalnum():
                 j -= 1
-            if i < j and not self.isSame(s[i], s[j]):
+            if i < j and s[i].lower() != s[j].lower():
                 return False
             i += 1
             j -= 1
         return True
-
-    def isAlpha(self, c):
-        if (c >= 'A' and c <= 'Z') or (c >= 'a' and c <= 'z'):
-            return True
-        return False
-
-    def isNumeric(self, c):
-        if c >= '0' and c <= '9':
-            return True
-        return False
-
-    def isSame(self, c1, c2):
-        diff = ord('a') - ord('A')
-        ordC1, ordC2 = ord(c1), ord(c2)
-        if ordC1 == ordC2:
-            return True
-        if self.isAlpha(c1) and self.isAlpha(c2) and \
-                (ordC1 == ordC2 + diff or ordC1 == ordC2 - diff):
-            return True
-        return False
