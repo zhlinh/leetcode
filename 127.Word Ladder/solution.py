@@ -39,24 +39,28 @@ class Solution(object):
         :type wordList: Set[str]
         :rtype: int
         """
-        q = set([beginWord])
-        visited = set()
         unvisited = set(wordList)
-        unvisited.add(endWord)
+        unvisited.discard(endWord)
         unvisited.discard(beginWord)
+        charSet = "abcdefghijklmnopqrstuvwxyz"
         level = 0
-        while q:
+        front = set([beginWord])
+        back = set([endWord])
+        while front:
+            visited = set()
             level += 1
-            for cur in q:
+            for cur in front:
                 for i in range(len(cur)):
-                    for c in range(ord('a'), ord('z') + 1):
-                        ch = chr(c)
+                    for ch in charSet:
                         new = cur[:i] + ch + cur[i+1:]
-                        if new == endWord:
-                                return level + 1
+                        # IF there is common word, connected
+                        if new in back:
+                            return level + 1
                         if new in unvisited:
                             visited.add(new)
+            front = visited
+            print(front, back)
+            if len(front) > len(back):
+                front, back = back, front
             unvisited -= visited
-            q = visited
-            visited = set()
         return 0
