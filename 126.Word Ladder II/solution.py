@@ -41,42 +41,51 @@ class Solution(object):
         :type wordlist: Set[str]
         :rtype: List[List[int]]
         """
-        q = [beginWord]
         linked = {}
         results = []
-        visited = set()
         unvisited = set(wordlist)
-        unvisited.add(endWord)
+        unvisited.discard(endWord)
         unvisited.discard(beginWord)
         found = False
-        while q:
-            width = len(q)
-            for _ in range(width):
-                cur = q.pop(0)
+        front = set([beginWord])
+        back = set([endWord])
+        charSet = "abcdefghijklmnopqrstuvwxyz"
+        isFrontHead = True
+        while front:
+            visited = set()
+            for cur in front:
                 for i in range(len(cur)):
-                    for c in range(ord('a'), ord('z') + 1):
-                        ch = chr(c)
+                    for ch in charSet:
                         new = cur[:i] + ch + cur[i+1:]
-                        if new in unvisited:
-                            # in a level only distinct node,
-                            # so do not add the same node to queue
-                            if new not in visited:
-                                visited.add(new)
-                                q.append(new)
-                            # But a node can link to many prev nodes
-                            if new in linked:
-                                linked[new].append(cur)
-                            else:
-                                linked[new] = [cur]
-                            if new == endWord:
-                                found = True
+                        if new in back:
+                            found = True
+                            self.addLink(linked, isFrontHead, cur, new)
+                        if not found and new in unvisited:
+                            visited.add(new)
+                            self.addLink(linked, isFrontHead, cur, new)
             if found:
                 break
+            front = visited
+            if len(front) > len(back):
+                front, back = back, front
+                isFrontHead = not isFrontHead
             for vi in visited:
                 unvisited.discard(vi)
-            visited = set()
+            #  unvisited -= visited
         self.dfs(linked, endWord, beginWord, [endWord], results)
         return results
+
+    def addLink(self, linked, isFrontHead, cur, new):
+        if isFrontHead:
+            if new in linked:
+                linked[new].append(cur)
+            else:
+                linked[new] = [cur]
+        else:
+            if cur in linked:
+                linked[cur].append(new)
+            else:
+                linked[cur] = [new]
 
     def dfs(self, linked, word, start, result, results):
         if word == start:

@@ -31,3 +31,22 @@ submit的结果为:
 Status: Accepted
 Runtime: 808 ms
 ```
+
+第三版用了双向BFS(bidirectional BFS)。
+
+需要注意的是正向和反向时linked邻接节点列表的添加的不同。
+
+其实就是节点和下一跳位置会颠倒。
+
+另外需要注意的是当两锋面相接时应作为另外的情况考虑。
+
+将锋面连起来，而不是还在寻找unvisited的节点。
+
+速度要比普通BFS要快的多。
+
+submit的结果为:
+```
+37 / 37 test cases passed.
+Status: Accepted
+Runtime: 128 ms
+```
