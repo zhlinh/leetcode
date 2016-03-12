@@ -3,12 +3,12 @@
 
 from solution import Solution
 
-#  bw = "hit"
-#  ew = "cog"
-#  wl = set(["hot","dot","dog","lot","log"])
-bw = "hot"
-ew = "dog"
-wl = set(["hot", "dog"])
+beginWord = "hit"
+endWord = "cog"
+wordlist = set(["hot","dot","dog","lot","log"])
+#  bw = "hot"
+#  ew = "dog"
+#  wl = set(["hot", "dog"])
 sol = Solution()
-res = sol.findLadders(bw, ew, wl)
+res = sol.findLadders(beginWord, endWord, wordlist)
 print(res)

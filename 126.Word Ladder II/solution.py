@@ -41,37 +41,40 @@ class Solution(object):
         :type wordlist: Set[str]
         :rtype: List[List[int]]
         """
-        step = 0
-        ladder = {}
-        for word in wordlist:
-            ladder[word] = 2 ** 31 - 1
-        ladder[beginWord] = 0
-        ladder[endWord] = 2 ** 31 - 1
         q = [beginWord]
-        minStep = 2 ** 31 - 1
         linked = {}
         results = []
+        visited = set()
+        unvisited = set(wordlist)
+        unvisited.add(endWord)
+        unvisited.discard(beginWord)
+        found = False
         while q:
-            cur = q.pop(0)
-            step = ladder[cur] + 1
-            if step > minStep:
+            width = len(q)
+            for _ in range(width):
+                cur = q.pop(0)
+                for i in range(len(cur)):
+                    for c in range(ord('a'), ord('z') + 1):
+                        ch = chr(c)
+                        new = cur[:i] + ch + cur[i+1:]
+                        if new in unvisited:
+                            # in a level only distinct node,
+                            # so do not add the same node to queue
+                            if new not in visited:
+                                visited.add(new)
+                                q.append(new)
+                            # But a node can link to many prev nodes
+                            if new in linked:
+                                linked[new].append(cur)
+                            else:
+                                linked[new] = [cur]
+                            if new == endWord:
+                                found = True
+            if found:
                 break
-            for i in range(len(cur)):
-                for c in range(ord('a'), ord('z') + 1):
-                    ch = chr(c)
-                    new = cur[:i] + ch + cur[i+1:]
-                    if new in ladder:
-                        if step > ladder[new]:
-                            continue
-                        if step < ladder[new]:
-                            q.append(new)
-                            ladder[new] = step
-                        if new in linked:
-                            linked[new].append(cur)
-                        else:
-                            linked[new] = [cur]
-                        if new == endWord:
-                            minStep = step
+            for vi in visited:
+                unvisited.discard(vi)
+            visited = set()
         self.dfs(linked, endWord, beginWord, [endWord], results)
         return results
 
