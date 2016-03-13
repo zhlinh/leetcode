@@ -28,12 +28,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        numset = set(nums)
+        dict = {}
         res = 0
         for n in nums:
-            if n - 1 not in numset:
-                m = n + 1
-                while m in numset:
-                    m += 1
-                res = max(res, m - n)
+            if n not in dict:
+                left = dict.get(n - 1, 0)
+                right = dict.get(n + 1, 0)
+                length = left + right + 1
+                dict[n] = length
+                dict[n - left] = length
+                dict[n + right] = length
+                res = max(res, length)
         return res

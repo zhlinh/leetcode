@@ -10,3 +10,18 @@ submit的结果为:
 Status: Accepted
 Runtime: 60 ms
 ```
+
+第二版用了dict，存放的是当前连续的长度。
+
+计算长度的方法为dict[n] = dict[n-1] + dict[n+1] + 1。
+
+然后更新左右两端的长度。
+
+值得注意的是遇到重复元素时应不处理，否则长度会翻倍。
+
+submit的结果为:
+```
+67 / 67 test cases passed.
+Status: Accepted
+Runtime: 60 ms
+```
