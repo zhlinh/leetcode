@@ -31,16 +31,26 @@ class Solution(object):
         :type head: RandomListNode
         :rtype: RandomListNode
         """
-        dic = {}
-        return self.helper(head, dic)
-
-    def helper(self, node, dic):
-        if not node:
+        if not head:
             return None
-        if node.label in dic:
-            return dic[node.label]
-        root = RandomListNode(node.label)
-        dic[node.label] = root
-        root.next = self.helper(node.next, dic)
-        root.random = self.helper(node.random, dic)
-        return root
+        cur = head
+        while cur:
+            cur_cp = RandomListNode(cur.label)
+            cur_cp.next = cur.next
+            cur.next = cur_cp
+            cur = cur_cp.next
+        cur = head
+        while cur:
+            cur_cp = cur.next
+            if cur.random:
+                cur_cp.random = cur.random.next
+            cur = cur_cp.next
+        cur = head
+        head_cp = cur.next
+        while cur:
+            cur_cp = cur.next
+            cur.next = cur_cp.next
+            cur = cur.next
+            if cur:
+                cur_cp.next = cur.next
+        return head_cp
