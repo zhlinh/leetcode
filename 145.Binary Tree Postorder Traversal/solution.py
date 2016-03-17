@@ -43,17 +43,11 @@ class Solution(object):
             return res
         stack = []
         cur = root
-        pre = None
         while stack or cur:
             while cur:
                 stack.append(cur)
-                cur = cur.left
-            cur = stack[-1]
-            if cur.right and cur.right != pre:
+                res.insert(0, cur.val)
                 cur = cur.right
-            else:
-                pre = cur
-                res.append(cur.val)
-                stack.pop()
-                cur = None
+            cur = stack.pop()
+            cur = cur.left
         return res
