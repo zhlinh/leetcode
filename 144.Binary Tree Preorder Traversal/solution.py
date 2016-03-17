@@ -38,20 +38,15 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        stack = []
-        cur = root
-        visited = set()
         res = []
-        while stack or cur:
-            while cur:
-                if cur not in visited:
-                    res.append(cur.val)
-                    visited.add(cur)
-                stack.append(cur)
-                cur = cur.left
+        if not root:
+            return res
+        stack = [root]
+        while stack:
             cur = stack.pop()
-            cur = cur.right
-            if cur and cur not in visited:
-                res.append(cur.val)
-                visited.add(cur)
+            res.append(cur.val)
+            if cur.right:
+                stack.append(cur.right)
+            if cur.left:
+                stack.append(cur.left)
         return res

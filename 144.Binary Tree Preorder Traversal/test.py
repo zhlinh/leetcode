@@ -51,7 +51,7 @@ def printTree(root, indent):
 
 #  root = createTree("1, 2, 5, 3, 4, #, 6")
 root = createTree("1, #, 2, 3")
-printTree(root, 0)
+#  printTree(root, 0)
 sol = Solution()
 res = sol.preorderTraversal(root)
 print(res)
