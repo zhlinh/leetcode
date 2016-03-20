@@ -28,25 +28,47 @@ class Solution(object):
         """
         if not head or not head.next:
             return head
-        fast, slow = head, head
-        while fast.next and fast.next.next:
-            fast = fast.next.next
-            slow = slow.next
-        h2 = self.sortList(slow.next)
-        slow.next = None
-        h1 = self.sortList(head)
-        res = self.merge(h1, h2)
-        return res
+        cur = head
+        n = 0
+        while cur:
+            n += 1
+            cur = cur.next
+        step = 1
+        dummy = ListNode(0)
+        dummy.next = head
+        while step < n:
+            cur = dummy.next
+            tail = dummy
+            while cur:
+                left = cur
+                right = self.split(left, step)
+                cur = self.split(right, step)
+                tail = self.merge(left, right, tail)
+            step <<= 1
+        return dummy.next
 
-    def merge(self, h1, h2):
-        dummy = p = ListNode(0)
+    def split(self, h, step):
+        i = 1
+        while h and i < step:
+            h = h.next
+            i += 1
+        if not h:
+            return None
+        second = h.next
+        h.next = None
+        return second
+
+    def merge(self, h1, h2, tail):
+        h = tail
         while h1 and h2:
             if h1.val < h2.val:
-                p.next = h1
+                h.next = h1
                 h1 = h1.next
             else:
-                p.next = h2
+                h.next = h2
                 h2 = h2.next
-            p = p.next
-        p.next = h1 or h2
-        return dummy.next
+            h = h.next
+        h.next = h1 or h2
+        while h.next:
+            h = h.next
+        return h

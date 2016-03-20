@@ -27,8 +27,8 @@ def lsListNode(head):
         lnp = lnp.next
     print(rList)
 
-inpt = mkListNode([3, 2, 0, -4])
-lsListNode(inpt)
+inpt = mkListNode([1, 3, 2, 0, -4])
+#  lsListNode(inpt)
 sol = Solution()
 res = sol.sortList(inpt)
 lsListNode(res)
