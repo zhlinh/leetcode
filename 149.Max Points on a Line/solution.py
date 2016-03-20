@@ -31,28 +31,32 @@ class Solution(object):
         if n < 2:
             return n
         dic = {}
-        res = 1
+        res = 0
         for i in range(len(points)):
+            dic = {}
+            overlap = 0
+            diffMax = 0
             for j in range(i + 1, len(points)):
-                if points[i].x == points[j].x:
-                    a = 1
-                    b = 0
-                    c = -points[i].x
-                elif points[i].y == points[j].y:
-                    a = 0
-                    b = 1
-                    c = -points[i].y
-                else:
-                    a = float((points[i].y - points[j]. y)) / \
-                            (points[i].x - points[j].x)
-                    b = -1
-                    c = points[i].y - a * points[i].x
-                key = (a, b, c)
+                x = points[i].x - points[j].x
+                y = points[i].y - points[j].y
+                if x == 0 and y == 0:
+                    overlap += 1
+                    continue
+                gcd = self.getGCD(x, y)
+                if gcd:
+                    x //= gcd
+                    y //= gcd
+                key = (x, y)
                 if key in dic:
-                    dic[key].add(i)
-                    dic[key].add(j)
-                    res = max(res, len(dic[key]))
+                    dic[key] += 1
                 else:
-                    dic[key] = set([i, j])
-                    res = max(res, 2)
+                    dic[key] = 1
+                diffMax = max(diffMax, dic[key])
+            res = max(res, diffMax + overlap + 1)
         return res
+
+    def getGCD(self, x, y):
+        while y:
+            x, y = y, x % y
+        return x
+
