@@ -49,21 +49,14 @@ class Solution(object):
         """
         if not headA or not headB:
             return None
-        h = headA
-        while h.next:
-            h = h.next
-        end = h
-        h.next = headB
-        fast = slow = h = headA
-        while fast and fast.next:
-            fast = fast.next.next
-            slow = slow.next
-            if slow == fast:
-                while slow:
-                    if h == slow:
-                        end.next = None
-                        return h.val
-                    slow = slow.next
-                    h = h.next
-        end.next = None
-        return None
+        h1, h2 = headA, headB
+        while h1 and h2 and h1 != h2:
+            h1 = h1.next
+            h2 = h2.next
+            if h1 == h2:
+                return h1
+            if not h1:
+                h1 = headB
+            if not h2:
+                h2 = headA
+        return h1
