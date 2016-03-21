@@ -18,3 +18,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 48 ms
 ```
+
+第二种解法的思路是从左往右找小于本次二分法的的终点的点。
+
+即比较的值会一直在变化，这样也可以有效地缩小范围。
+
+需要注意的是当nums[mid] == nums[j]时，j -= 1。即出现相同元素的处理。
+
+submit的结果为:
+```
+188 / 188 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```

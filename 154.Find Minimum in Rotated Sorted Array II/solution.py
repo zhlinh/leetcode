@@ -30,14 +30,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        i, j = 0, len(nums)
-        while nums[j-1] == nums[i] and i < j - 1:
-            j -= 1
-        end = j - 1
+        i, j = 0, len(nums) - 1
         while i < j:
             mid = i + (j - i) // 2
-            if nums[mid] <= nums[end]:
+            if nums[mid] < nums[j]:
                 j = mid
-            else:
+            elif nums[mid] > nums[j]:
                 i = mid + 1
+            else:
+                j -= 1
         return nums[i]
