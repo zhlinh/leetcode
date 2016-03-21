@@ -24,23 +24,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if not nums:
-            return 0
-        dp = [1 for _ in range(len(nums) + 1)]
-        res = -2 ** 31
-        count, start = 0, -1
-        for i in range(len(nums)):
-            if nums[i] == 0:
-                count, start = 0, -1
-                res = max(res, 0)
-                continue
-            if nums[i] < 0:
-                count += 1
-                if start == -1:
-                    start = i + 1
-            dp[i+1] = dp[i] * nums[i]
-            if count % 2 == 1 and start != i + 1 and start != -1:
-                res = max(res, dp[i+1]//dp[start])
-            else:
-                res = max(res, dp[i+1])
+        if len(nums) == 1:
+            return nums[0]
+        pMax, nMax = 0, 0
+        res = 0
+        for n in nums:
+            if n < 0:
+                pMax, nMax = nMax, pMax
+            pMax = max(pMax * n, n)
+            nMax = min(nMax * n, n)
+            res = max(res, pMax)
         return res
