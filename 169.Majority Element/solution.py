@@ -27,14 +27,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        dic = {}
-        res = 0
-        gap = len(nums) // 2
+        major, counts = 0, 0
         for n in nums:
-            if n not in dic:
-                dic[n] = 1
+            if counts == 0:
+                major, counts = n, 1
             else:
-                dic[n] += 1
-            if dic[n] > gap:
-                return n
-        return
+                counts += 1 if major == n else -1
+        return major
