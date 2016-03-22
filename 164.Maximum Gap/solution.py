@@ -37,25 +37,24 @@ class Solution(object):
         if length < 2:
             return 0
         res = 0
-        minNum = nums[0]
         maxNum = nums[0]
         for n in nums:
-            minNum = min(minNum, n)
             maxNum = max(maxNum, n)
-        gap = 1 + (maxNum - minNum - 1) // (length - 1)
-        minValues = [2 ** 31 - 1] * (length - 1)
-        maxValues = [-2 ** 31] * (length - 1)
-        for n in nums:
-            if n == minNum or n == maxNum:
-                continue
-            i = (n - minNum) // gap
-            minValues[i] = min(minValues[i], n)
-            maxValues[i] = max(maxValues[i], n)
-        pre = minNum
-        for i in range(length - 1):
-            if minValues[i] == 2 ** 31 - 1 and maxValues[i] == -2 ** 31:
-                continue
-            res = max(res, minValues[i] - pre)
-            pre = maxValues[i]
-        res = max(res, maxNum - pre)
+        exp = 1  # exp can be 1, 10, 100...
+        sortedNums = [0] * length
+        while maxNum // exp > 0:
+            countDit = [0] * 10 # count quantity of 0~9
+            for n in nums:
+                countDit[(n//exp)%10] += 1
+            for i in range(1, 10):
+                countDit[i] += countDit[i-1]
+            for i in reversed(range(length)):
+                countDit[(nums[i]//exp)%10] -= 1
+                index = countDit[(nums[i]//exp)%10]
+                sortedNums[index] = nums[i]
+            for i in range(length):
+                nums[i] = sortedNums[i]
+            exp *= 10
+        for i in range(1, length):
+            res = max(res, sortedNums[i] - sortedNums[i-1])
         return res
