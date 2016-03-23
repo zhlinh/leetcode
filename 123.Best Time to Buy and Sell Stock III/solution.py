@@ -30,11 +30,11 @@ class Solution(object):
         n = len(prices)
         if n == 0:
             return 0
-        dp = [0 for _ in range(n)]
-        num = 2
-        for i in range(1, num + 1):
-            hold = -2 ** 31
-            for j in range(n):
-                hold = max(hold, dp[j] - prices[j])
-                dp[j] = max(dp[j-1], hold + prices[j])
-        return dp[-1]
+        k = 2
+        hold = [-2 ** 31] * (k + 1)
+        release = [0] * (k + 1)
+        for p in prices:
+            for i in range(1, k + 1):
+                hold[i] = max(hold[i], release[i-1] - p)
+                release[i] = max(release[i], hold[i] + p)
+        return release[k]
