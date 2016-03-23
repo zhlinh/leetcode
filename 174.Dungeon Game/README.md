@@ -12,3 +12,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 72 ms
 ```
+
+第二版的思路和第一版一样的，只是把二维的DP改成了一维的。
+
+只要把握好哪个是二维空间里的下面一个元素和右边一个元素就好了。
+
+另外需要注意起点的初始化问题就好。
+
+submit的结果为:
+```
+44 / 44 test cases passed.
+Status: Accepted
+Runtime: 60 ms
+```

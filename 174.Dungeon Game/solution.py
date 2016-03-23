@@ -63,10 +63,10 @@ class Solution(object):
         if m < 1:
             return None
         n = len(dungeon[0])
-        dp = [[2 ** 31 - 1 for _ in range(n + 1)] for __ in range((m + 1))]
-        dp[m][n-1], dp[m-1][n] = 1, 1
+        dp = [2 **31 - 1 for _ in range(n+1)]
+        dp[n-1] = 1
         for i in reversed(range(m)):
             for j in reversed(range(n)):
-                need = min(dp[i+1][j], dp[i][j+1]) - dungeon[i][j]
-                dp[i][j] = 1 if need <= 0 else need
-        return dp[0][0]
+                need = min(dp[j], dp[j+1])- dungeon[i][j]
+                dp[j] = max(1, need)
+        return dp[0]
