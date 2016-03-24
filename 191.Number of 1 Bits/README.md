@@ -12,3 +12,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 44 ms
 ```
+
+第二版用的比特流，O(1) space。
+
+就是把1都聚拢起来，依次装到2bit里，装到4bit里...装到32比特里。
+
+最后得到的即为1出现的次数。
+
+submit的结果为:
+```
+600 / 600 test cases passed.
+Status: Accepted
+Runtime: 52 ms
+```
