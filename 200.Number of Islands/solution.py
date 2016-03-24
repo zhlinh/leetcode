@@ -51,16 +51,24 @@ class Solution(object):
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == '1':
-                    self.dfs(grid, i, j, m, n)
+                    self.bfs(grid, i, j, m, n)
                     count += 1
         return count
 
-    def dfs(self, grid, i, j, m, n):
-        if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == '0':
-            return
+    def bfs(self, grid, i, j, m, n):
         grid[i][j] = '0'
-        self.dfs(grid, i-1, j, m, n)
-        self.dfs(grid, i+1, j, m, n)
-        self.dfs(grid, i, j-1, m, n)
-        self.dfs(grid, i, j+1, m, n)
-
+        q = [(i, j)]
+        while q:
+            x, y = q.pop(0)
+            if x - 1 >= 0 and grid[x-1][y] == '1':
+                grid[x-1][y] = '0'
+                q.append((x-1, y))
+            if x + 1 < m and grid[x+1][y] == '1':
+                grid[x+1][y] = '0'
+                q.append((x+1, y))
+            if y - 1 >= 0 and grid[x][y-1] == '1':
+                grid[x][y-1] = '0'
+                q.append((x, y-1))
+            if y + 1 < n and grid[x][y+1] == '1':
+                grid[x][y+1] = '0'
+                q.append((x, y+1))
