@@ -32,13 +32,11 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        return self.helper(None, head)
+
+    def helper(self, pre, head):
         if not head:
-            return None
-        dummy = ListNode(0)
-        dummy.next = h = head
-        while h.next:
-            tmp = h.next
-            h.next = tmp.next
-            tmp.next = dummy.next
-            dummy.next = tmp
-        return dummy.next
+            return pre
+        nextNode = head.next
+        head.next = pre
+        return self.helper(head, nextNode)
