@@ -15,11 +15,22 @@ Runtime: 212 ms
 
 如果n==m很容易理解n即为所求。
 
-而n<m则表明m与n在mask的范围内最高位都为1，n去掉该1后，n<m，n为所求。
+而n<m，举个例子就是11和100，然后n最后为0，n<m，n为所求。
 
 submit的结果为:
 ```
 8266 / 8266 test cases passed.
 Status: Accepted
 Runtime: 192 ms
+```
+
+第三版是m >>= 1，n >>= 1， shift += 1。直到m == n退出循环。然后返回n << shift。
+
+这个就比较容易理解了，将m和n不相同的置0即为所求。
+
+submit的结果为:
+```
+8266 / 8266 test cases passed.
+Status: Accepted
+Runtime: 208 ms
 ```

@@ -29,6 +29,9 @@ class Solution(object):
         """
         if m == 0:
             return 0
-        while n > m:
-            n &= (n - 1)
-        return n
+        shift = 0
+        while n != m:
+            m >>= 1
+            n >>= 1
+            shift += 1
+        return n << shift
