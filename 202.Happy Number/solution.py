@@ -37,15 +37,18 @@ class Solution(object):
         :type n: int
         :rtype: bool
         """
-        visited = set()
+        slow, fast = n, n
         while True:
-            if n in visited:
-                return False
-            visited.add(n)
-            m = 0
-            while n != 0:
-                m += (n % 10) ** 2
-                n //= 10
-            if m == 1:
+            slow = self.cal(slow)
+            fast = self.cal(self.cal(fast))
+            if slow == 1:
                 return True
-            n = m
+            if fast == slow:
+                return False
+
+    def cal(self, n):
+        m = 0
+        while n != 0:
+            m += (n % 10) ** 2
+            n //= 10
+        return m
