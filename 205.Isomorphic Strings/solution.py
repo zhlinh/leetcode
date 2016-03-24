@@ -40,13 +40,11 @@ class Solution(object):
         """
         if len(s) != len(t):
             return False
-        dic = {}
+        m1 = [0] * 256
+        m2 = [0] * 256
         for i in range(len(s)):
-            if s[i] in dic:
-                if dic[s[i]] != t[i]:
-                    return False
-            else:
-                if t[i] in dic.values():
-                    return False
-                dic[s[i]] = t[i]
+            if m1[ord(s[i])] != m2[ord(t[i])]:
+                return False
+            m1[ord(s[i])] = i + 1
+            m2[ord(t[i])] = i + 1
         return True
