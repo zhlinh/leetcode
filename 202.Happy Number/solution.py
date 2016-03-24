@@ -37,18 +37,14 @@ class Solution(object):
         :type n: int
         :rtype: bool
         """
-        slow, fast = n, n
+        magic = 4
         while True:
-            slow = self.cal(slow)
-            fast = self.cal(self.cal(fast))
-            if slow == 1:
+            m = 0
+            while n != 0:
+                m += (n % 10) ** 2
+                n //= 10
+            n = m
+            if n == 1:
                 return True
-            if fast == slow:
+            if n == magic:
                 return False
-
-    def cal(self, n):
-        m = 0
-        while n != 0:
-            m += (n % 10) ** 2
-            n //= 10
-        return m

@@ -25,3 +25,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 54 ms
 ```
+
+第三版利用到了一个数学规律，所有的unHappy的数都会进入到4开始的循环中。
+
+所以只判断为1返回True，为4返回False即可。
+
+4就是Happy number中的magic数。
+
+submit的结果为:
+```
+400 / 400 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```
