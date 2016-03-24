@@ -40,18 +40,14 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        if not root:
-            return []
-        q = [root]
-        cur = None
         res = []
-        while q:
-            n = len(q)
-            for i in range(n):
-                cur = q.pop(0)
-                if cur.left:
-                    q.append(cur.left)
-                if cur.right:
-                    q.append(cur.right)
-            res.append(cur.val)
+        self.dfs(root, 0, res)
         return res
+
+    def dfs(self, node, depth, res):
+        if not node:
+            return
+        if depth == len(res):
+            res.append(node.val)
+        self.dfs(node.right, depth + 1, res)
+        self.dfs(node.left, depth + 1, res)
