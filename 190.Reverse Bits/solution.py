@@ -27,18 +27,14 @@ Special thanks to @ts for adding this problem and creating all test cases.
 '''
 
 class Solution(object):
-    dic = {}
     def reverseBits(self, n):
         """
         :type n: int
         :rtype: int
         """
-        if n in self.dic:
-            return self.dic[n]
-        res = 0
-        for i in range(32):
-            res <<= 1
-            res |= n & 1
-            n >>= 1
-        self.dic[n] = res
-        return res
+        n = (n << 16) | (n >> 16)
+        n = ((n & 0xFF00FF00) >> 8) | ((n & 0x00FF00FF) << 8)
+        n = ((n & 0xF0F0F0F0) >> 4) | ((n & 0x0F0F0F0F) << 4)
+        n = ((n & 0xCCCCCCCC) >> 2) | ((n & 0x33333333) << 2)
+        n = ((n & 0xAAAAAAAA) >> 1) | ((n & 0x55555555) << 1)
+        return n
