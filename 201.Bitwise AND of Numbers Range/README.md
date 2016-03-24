@@ -10,3 +10,16 @@ submit的结果为:
 Status: Accepted
 Runtime: 212 ms
 ```
+
+第二版用的是n &= (n - 1)，循环直到m >= n退出。然后返回n。
+
+如果n==m很容易理解n即为所求。
+
+而n<m则表明m与n在mask的范围内最高位都为1，n去掉该1后，n<m，n为所求。
+
+submit的结果为:
+```
+8266 / 8266 test cases passed.
+Status: Accepted
+Runtime: 192 ms
+```
