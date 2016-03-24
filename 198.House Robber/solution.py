@@ -34,12 +34,10 @@ class Solution(object):
         :rtype: int
         """
         n = len(nums)
-        if n == 0:
-            return 0
-        dp = [0] * (n + 1)
+        a, b = 0, 0
         for i in range(n):
-            if i < 2:
-                dp[i+1] = nums[i]
+            if i % 2 == 0:
+                a = max(a + nums[i], b)
             else:
-                dp[i+1] = max(dp[i-1], dp[i-2]) + nums[i]
-        return max(dp[n], dp[n-1])
+                b = max(b + nums[i], a)
+        return max(a, b)
