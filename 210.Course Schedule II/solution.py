@@ -61,26 +61,24 @@ class Solution(object):
         :type prerequisites: List[List[int]]
         :rtype: List[int]
         """
-        indegree = [0] * numCourses
         matrix = [set() for _ in range(numCourses)]
-        count = 0
-        for p in prerequisites:
-            pre = p[1]
-            ready = p[0]
-            if ready not in matrix[pre]:
-                indegree[ready] += 1
-            matrix[pre].add(ready)
-        q = deque()
-        for i in range(numCourses):
-            if indegree[i] == 0:
-                q.append(i)
+        visited = [0] * numCourses
         res = []
-        while q:
-            cur = q.popleft()
-            res.append(cur)
-            count += 1
-            for neighbor in matrix[cur]:
-                indegree[neighbor] -= 1
-                if indegree[neighbor] == 0:
-                    q.append(neighbor)
-        return res if count == numCourses else []
+        for p in prerequisites:
+            matrix[p[1]].add(p[0])
+        for i in range(numCourses):
+            if visited[i] == 0 and not self.dfs(matrix, i, visited, res):
+                return []
+        return res[::-1]
+
+    def dfs(self, matrix, i, visited, res):
+        visited[i] = 1
+        for neighbor in matrix[i]:
+            if visited[neighbor] == 1:
+                return False
+            if visited[neighbor] == 0 and \
+                    not self.dfs(matrix, neighbor, visited, res):
+                return False
+        visited[i] = -1
+        res.append(i)
+        return True
