@@ -18,12 +18,11 @@ You may assume that all inputs are consist of lowercase letters a-z.
 '''
 
 class TrieNode(object):
-    def __init__(self, ch = None):
+    def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.children = [None] * 26
-        self.val = ch
+        self.children = {}
         self.isWord = False
 
 
@@ -40,10 +39,9 @@ class Trie(object):
         """
         node = self.root
         for ch in word:
-            index = ord(ch)-ord('a')
-            if node.children[index] == None:
-                node.children[index] = TrieNode(ch)
-            node = node.children[index]
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
         node.isWord = True
 
     def search(self, word):
@@ -54,10 +52,9 @@ class Trie(object):
         """
         node = self.root
         for ch in word:
-            index = ord(ch)-ord('a')
-            if node.children[index] == None:
+            if ch not in node.children:
                 return False
-            node = node.children[index]
+            node = node.children[ch]
         return node.isWord
 
 
@@ -70,10 +67,9 @@ class Trie(object):
         """
         node = self.root
         for ch in prefix:
-            index = ord(ch)-ord('a')
-            if node.children[index] == None:
+            if ch not in node.children:
                 return False
-            node = node.children[index]
+            node = node.children[ch]
         return True
 
 

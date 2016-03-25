@@ -14,3 +14,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 396 ms
 ```
+
+第二版去掉了val，把数组换成了dic，这样可以节约空间。
+
+submit的结果为:
+```
+14 / 14 test cases passed.
+Status: Accepted
+Runtime: 327 ms
+```
