@@ -55,27 +55,21 @@ class Solution(object):
         :rtype: bool
         """
         matrix = [set() for _ in range(numCourses)]
-        indegree = [0] * numCourses
-        # V part
         for p in prerequisites:
-            pre = p[1]
-            ready = p[0]
-            # same pre and ready, avoid duplicate case
-            if ready not in matrix[pre]:
-                indegree[ready] += 1
-            matrix[pre].add(ready)
-        count = 0
-        q = deque()
-        # E part
-        for i in range(len(indegree)):
-            if indegree[i] == 0:
-                q.append(i)
-        # V + E part
-        while q:
-            cur = q.popleft()
-            count += 1
-            for neighbor in matrix[cur]:
-                indegree[neighbor] -= 1
-                if indegree[neighbor] == 0:
-                    q.append(neighbor)
-        return count == numCourses
+            matrix[p[1]].add(p[0])
+        visited = [0] * numCourses
+        for i in range(numCourses):
+            if visited[i] == 0:
+                if not self.dfs(matrix, i, visited):
+                    return False
+        return True
+
+    def dfs(self, matrix, i, visited):
+        visited[i] = 1
+        for neighbor in matrix[i]:
+            if visited[neighbor] == 1:
+                return False
+            if visited[neighbor] == 0 and not self.dfs(matrix, neighbor, visited):
+                return False
+        visited[i] = -1
+        return True
