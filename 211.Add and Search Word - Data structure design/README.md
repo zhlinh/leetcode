@@ -12,3 +12,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 556 ms
 ```
+
+第二版用的是BFS，就是把每一层的可能符合的字母都添加进queue，直到最后一层。
+
+将然后将最后一层的所有节点遍历，检查是否有isWord。如果有则返回True。否则为false。
+
+submit的结果为:
+```
+13 / 13 test cases passed.
+Status: Accepted
+Runtime: 556 ms
+```

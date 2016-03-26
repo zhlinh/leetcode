@@ -37,6 +37,8 @@ You should be familiar with how a Trie works.
 If not, please work on this problem: Implement Trie (Prefix Tree) first.
 '''
 
+from collections import deque
+
 class TrieNode(object):
     def __init__(self):
         self.children = {}
@@ -70,20 +72,25 @@ class WordDictionary(object):
         :type word: str
         :rtype: bool
         """
-        return self.dfs(self.root, word, 0)
-
-    def dfs(self, node, word, i):
-        if i >= len(word):
-            return node.isWord
-        if word[i] == '.':
-            for child in node.children:
-                if self.dfs(node.children[child], word, i + 1):
-                    return True
-            return False
-        else:
-            if word[i] not in node.children:
-                return False
-            return self.dfs(node.children[word[i]], word, i + 1)
+        q = deque()
+        q.append(self.root)
+        i = 0
+        while q and i < len(word):
+            width = len(q)
+            for j in range(width):
+                cur = q.popleft()
+                if word[i] == '.':
+                    for w in cur.children:
+                        q.append(cur.children[w])
+                else:
+                    if word[i] in cur.children:
+                        q.append(cur.children[word[i]])
+            i += 1
+        while q:
+            cur = q.popleft()
+            if cur.isWord:
+                return True
+        return False
 
 # Your WordDictionary object will be instantiated and called as such:
 # wordDictionary = WordDictionary()
