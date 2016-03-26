@@ -18,3 +18,19 @@ submit的结果为:
 Status: Accepted
 Runtime: 688 ms
 ```
+
+第二版将Trie的search和startsWith去掉了。
+
+然后将Trie的isWord改为了word。
+
+然后在insert的最后将所添加的word赋给本节点的word。
+
+这样就可以不用向DFS传递res路径了，只要某个节点的word存在则添加到results中。
+
+然后将此节点的word设为None，以避免重复添加。
+submit的结果为:
+```
+37 / 37 test cases passed.
+Status: Accepted
+Runtime: 642 ms
+```

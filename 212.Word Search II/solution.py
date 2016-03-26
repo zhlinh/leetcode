@@ -47,7 +47,7 @@ please work on this problem: Implement Trie (Prefix Tree) first.
 class TrieNode(object):
     def __init__(self):
         self.children = {}
-        self.isWord = False
+        self.word = None
 
 class Trie(object):
 
@@ -65,35 +65,7 @@ class Trie(object):
             if ch not in node.children:
                 node.children[ch] = TrieNode()
             node = node.children[ch]
-        node.isWord = True
-
-    def search(self, word):
-        """
-        Returns if the word is in the trie.
-        :type word: str
-        :rtype: bool
-        """
-        node = self.root
-        for ch in word:
-            if ch not in node.children:
-                return False
-            node = node.children[ch]
-        return node.isWord
-
-
-    def startsWith(self, prefix):
-        """
-        Returns if there is any word in the trie
-        that starts with the given prefix.
-        :type prefix: str
-        :rtype: bool
-        """
-        node = self.root
-        for ch in prefix:
-            if ch not in node.children:
-                return False
-            node = node.children[ch]
-        return True
+        node.word = word
 
 class Solution(object):
     def findWords(self, board, words):
@@ -111,27 +83,26 @@ class Solution(object):
             trie.insert(word)
         node = trie.root
         results = []
-        res = ""
         for i in range(m):
             for j in range(n):
-                self.dfs(board, i, j, node, res, results)
-        return list(results)
+                self.dfs(board, i, j, node, results)
+        return results
 
-    def dfs(self, board, i, j, node, res, results):
-        if node.isWord:
-            results.append(res)
-            node.isWord = False
+    def dfs(self, board, i, j, node, results):
+        if node.word:
+            results.append(node.word)
+            node.word = None
         if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
             return
         c = board[i][j]
         if c == '#':
             return
-        if c not in node.children:
+        node = node.children.get(c, None)
+        if not node:
             return
-        node = node.children[c]
         board[i][j] = '#'
-        self.dfs(board, i+1, j, node, res + c, results)
-        self.dfs(board, i-1, j, node, res + c, results)
-        self.dfs(board, i, j+1, node, res + c, results)
-        self.dfs(board, i, j-1, node, res + c, results)
+        self.dfs(board, i+1, j, node, results)
+        self.dfs(board, i-1, j, node, results)
+        self.dfs(board, i, j+1, node, results)
+        self.dfs(board, i, j-1, node, results)
         board[i][j] = c
