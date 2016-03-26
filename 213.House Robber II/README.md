@@ -14,3 +14,18 @@ submit的结果为:
 Status: Accepted
 Runtime: 48 ms
 ```
+
+将第一版的分为奇偶改为了include和exclude两个。
+
+意思是是否包含当前点，包含的只需要更新exclude + num[i]即可。
+
+exclude需要取max(exclude, 上一次的include(需要先tmp存起来))。
+
+这样表示取不包含当前点且是否包含前一点的最大值。
+
+submit的结果为:
+```
+74 / 74 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```

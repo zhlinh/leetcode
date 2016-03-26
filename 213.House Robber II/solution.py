@@ -38,16 +38,14 @@ class Solution(object):
         n = len(nums)
         if n == 1:
             return nums[0]
-        a, b, c, d = 0, 0, 0, 0
+        aInclude, aExclude, bInclude, bExclude = 0, 0, 0, 0
         for i in range(n):
             if i > 0:
-                if i % 2 == 1:
-                    a = max(a + nums[i], b)
-                else:
-                    b = max(b + nums[i], a)
+                tmp = aInclude
+                aInclude = aExclude + nums[i]
+                aExclude = max(aExclude, tmp)
             if i < n - 1:
-                if i % 2 == 1:
-                    c = max(c + nums[i], d)
-                else:
-                    d = max(d + nums[i], c)
-        return max(a, b, c, d)
+                tmp = bInclude
+                bInclude = bExclude + nums[i]
+                bExclude = max(bExclude, tmp)
+        return max(aInclude, aExclude, bInclude, bExclude)
