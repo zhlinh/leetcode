@@ -25,6 +25,8 @@ Credits:
 Special thanks to @mithmatt for adding this problem and creating all test cases.
 '''
 
+import random
+
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
@@ -43,6 +45,8 @@ class Solution(object):
                 left = pos + 1
 
     def partition(self, nums, left, right):
+        rand = random.randint(left, right)
+        nums[left], nums[rand] = nums[rand], nums[left]
         pivot = nums[left]
         l, r = left + 1, right
         while l <= r:
