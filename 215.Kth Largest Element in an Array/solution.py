@@ -25,38 +25,35 @@ Credits:
 Special thanks to @mithmatt for adding this problem and creating all test cases.
 '''
 
-import random
-
 class Solution(object):
+    maxHeapSize = 0
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: int
         """
-        left, right = 0, len(nums) - 1
-        while True:
-            pos = self.partition(nums, left, right)
-            if pos == k - 1:
-                return nums[pos]
-            if pos > k - 1:
-                right = pos - 1
-            else:
-                left = pos + 1
+        self.maxHeapSize = len(nums)
+        self.buildMaxHeap(nums)
+        for i in range(k):
+            nums[0], nums[self.maxHeapSize-1] = nums[self.maxHeapSize-1], nums[0]
+            self.maxHeapSize -= 1
+            self.maxHeapify(nums, 0)
+        return nums[self.maxHeapSize]
 
-    def partition(self, nums, left, right):
-        rand = random.randint(left, right)
-        nums[left], nums[rand] = nums[rand], nums[left]
-        pivot = nums[left]
-        l, r = left + 1, right
-        while l <= r:
-            if nums[l] < pivot and nums[r] > pivot:
-                nums[l], nums[r] = nums[r], nums[l]
-                l += 1
-                r -= 1
-            if nums[l] >= pivot:
-                l += 1
-            if nums[r] <= pivot:
-                r -= 1
-        nums[left], nums[r] = nums[r], nums[left]
-        return r
+    def maxHeapify(self, nums, idx):
+        largest = idx
+        left = (largest  << 1) + 1
+        right = (largest  << 1) + 2
+        if left < self.maxHeapSize and nums[left] > nums[largest]:
+            largest = left
+        if right < self.maxHeapSize and nums[right] > nums[largest]:
+            largest = right
+        if idx != largest:
+            nums[idx], nums[largest] = nums[largest], nums[idx]
+            self.maxHeapify(nums, largest)
+
+    def buildMaxHeap(self, nums):
+        for i in reversed(range(self.maxHeapSize >> 1)):
+            print(i)
+            self.maxHeapify(nums, i)
