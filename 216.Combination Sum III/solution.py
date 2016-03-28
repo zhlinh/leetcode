@@ -44,15 +44,30 @@ class Solution(object):
         :type n: int
         :rtype: List[List[int]]
         """
+        if k == 0:
+            return []
+        if k == 1:
+            if k >= 1 and k <= 9:
+                return [k]
+            else:
+                return []
         results = []
-        self.dfs(1, n, [], results, k)
+        self.helper(k, 1, n, [], results)
         return results
 
-    def dfs(self, start, curSum, result, results, depth):
-        if curSum < 0 or depth < 0:
-            return
-        if depth == 0 and curSum == 0:
-            results.append(result)
-        for i in range(start, 10):
-            self.dfs(i + 1, curSum - i, result + [i], results, depth - 1)
+    def helper(self, k, start, target, result, results):
+        if k == 2:
+            l, r = start, 9
+            while l < r:
+                if l + r > target:
+                    r -= 1
+                elif l + r < target:
+                    l += 1
+                else:
+                    results.append(result + [l, r])
+                    l += 1
+                    r -= 1
+        else:
+            for i in range(start, 11 - k):
+                self.helper(k - 1, i + 1, target - i, result + [i], results)
 
