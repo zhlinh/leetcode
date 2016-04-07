@@ -47,5 +47,4 @@ class Solution(object):
                 next[i] = j
             else:
                 j = next[j]
-        print(next)
         return rev_s[:n - (next[-1]+1)] + s
