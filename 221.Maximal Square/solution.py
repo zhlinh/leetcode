@@ -35,24 +35,11 @@ class Solution(object):
         if m < 1:
             return 0
         n = len(matrix[0])
-        height = [0] * n
-        left = [0] * n
-        right = [n] * n
+        dp = [[0 for _ in range(n + 1)] for __ in range(m + 1)]
         res = 0
-        for i in range(m):
-            cur_left, cur_right = 0, n
-            for j in range(n):
-                if matrix[i][j] == '1':
-                    height[j] += 1
-                    left[j] = max(left[j], cur_left)
-                else:
-                    height[j] = 0
-                    left[j], cur_left = 0, j + 1
-            for j in range(n-1, -1, -1):
-                if matrix[i][j] == '1':
-                    right[j] = min(right[j], cur_right)
-                    edge = min(height[j], (right[j]-left[j]))
-                    res = max(res, edge * edge)
-                else:
-                    right[j], cur_right = n, j
-        return res
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if matrix[i-1][j-1] == '1':
+                    dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
+                    res = max(res, dp[i][j])
+        return res * res
