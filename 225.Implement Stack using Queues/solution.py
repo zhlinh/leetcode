@@ -48,33 +48,26 @@ class Stack(object):
         :rtype: nothing
         """
         self.q.append(x)
+        for i in range(len(self.q) - 1):
+            self.q.append(self.q.popleft())
 
     def pop(self):
         """
         :rtype: nothing
         """
-        tmp_q = deque()
-        while self.q:
-            x = self.q.popleft()
-            if self.q:
-                tmp_q.append(x)
-        self.q = tmp_q
+        return self.q.popleft()
 
     def top(self):
         """
         :rtype: int
         """
-        x = None
-        tmp_q = deque()
-        while self.q:
-            x = self.q.popleft()
-            tmp_q.append(x)
-        self.q = tmp_q
-        return x
+        if self.q:
+            return self.q[0]
+        else:
+            return None
 
     def empty(self):
         """
         :rtype: bool
         """
         return False if self.q else True
-
