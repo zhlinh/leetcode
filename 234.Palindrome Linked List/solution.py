@@ -30,27 +30,19 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        if not head:
-            return True
-        fast, slow = head, head
-        while fast.next and fast.next.next:
-            slow = slow.next
+        fast = head
+        rev = None
+        h2 = None
+        while fast and fast.next:
             fast = fast.next.next
-        h2 = slow.next
-        while h2 and h2.next:
-            tmp = h2.next
-            h2.next = tmp.next
-            tmp.next = slow.next
-            slow.next = tmp
-        h2 = slow.next
-        #  slow.next = None
-        h1 = head
-        while h2:
-            print(h2.val)
-            if h1.val != h2.val:
-                return False
-            h1 = h1.next
+            rev, rev.next, head = head, rev, head.next
+        if fast:
+            h2 = head.next
+        else:
+            h2 = head
+        isPali = True
+        while rev:
+            isPali = isPali and rev.val == h2.val
             h2 = h2.next
-        return True
-
-
+            head, head.next, rev = rev, head, rev.next
+        return isPali

@@ -27,8 +27,9 @@ def lsListNode(head):
         lnp = lnp.next
     return rList
 
-#  inpt = mkListNode([1, 2, 3, 3, 2, 1])
-inpt = mkListNode([1])
+inpt = mkListNode([1, 2, 3, 2, 1])
+#  inpt = mkListNode([1])
 sol = Solution()
 res = sol.isPalindrome(inpt)
 print(res)
+print(lsListNode(inpt))
