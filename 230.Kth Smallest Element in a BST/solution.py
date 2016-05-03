@@ -45,18 +45,15 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        c = self.count(root.left)
+        if k <= c:
+            return self.kthSmallest(root.left, k)
+        elif k > c + 1:
+            return self.kthSmallest(root.right, k - (c + 1))
+        return root.val
+
+    def count(self, root):
         if not root:
-            return None
-        stack = []
-        cur = root
-        while stack or cur:
-            while cur:
-                stack.append(cur)
-                cur = cur.left
-            cur = stack.pop()
-            k -= 1
-            if k == 0:
-                return cur.val
-            cur = cur.right
-        return None
+            return 0
+        return 1 + self.count(root.left) + self.count(root.right)
 
