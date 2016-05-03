@@ -33,34 +33,36 @@ class Queue(object):
         """
         initialize your data structure here.
         """
-        self.stack = []
+        self.in_stack = []
+        self.out_stack = []
 
     def push(self, x):
         """
         :type x: int
         :rtype: nothing
         """
-        tmp = []
-        while self.stack:
-            tmp.append(self.stack.pop())
-        self.stack.append(x)
-        while tmp:
-            self.stack.append(tmp.pop())
+        self.in_stack.append(x)
 
     def pop(self):
         """
         :rtype: nothing
         """
-        return self.stack.pop()
+        self.peek()
+        self.out_stack.pop()
 
     def peek(self):
         """
         :rtype: int
         """
-        return self.stack[-1]
+        if not self.out_stack:
+            while self.in_stack:
+                self.out_stack.append(self.in_stack.pop())
+        return self.out_stack[-1]
 
     def empty(self):
         """
         :rtype: bool
         """
-        return False if self.stack else True
+        if self.in_stack or self.out_stack:
+            return False
+        return True
