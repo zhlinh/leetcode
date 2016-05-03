@@ -12,3 +12,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 44 ms
 ```
+
+第二版更简洁一些，只记录start，然后是提前判断。nums[i+1]-nums[i]是否等于1。
+
+submit的结果为:
+```
+27 / 27 test cases passed.
+Status: Accepted
+Runtime: 48 ms
+```

@@ -26,28 +26,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[str]
         """
-        if not nums:
-            return []
-        start = 2 ** 31 - 1
-        end = -2 ** 31
         res = []
         n = len(nums)
-        for i in range(n):
-            if start >= nums[i]:
-                start = nums[i]
-                pre = nums[i]
-            elif nums[i] - pre == 1:
-                end = nums[i]
-            elif nums[i] - pre > 1:
-                if end > start:
-                    res.append(str(start) + "->" + str(end))
-                else:
-                    res.append(str(start))
-                start = nums[i]
-                end = -2 ** 31
-            pre = nums[i]
-        if end > start:
-            res.append(str(start) + "->" + str(end))
-        else:
-            res.append(str(start))
+        i = 0
+        while i < n:
+            start = nums[i]
+            while i < n - 1 and nums[i+1] - nums[i] == 1:
+                i += 1
+            if nums[i] != start:
+                res.append(str(start) + "->" + str(nums[i]))
+            else:
+                res.append(str(start))
+            i += 1
         return res
