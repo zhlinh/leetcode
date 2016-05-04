@@ -62,7 +62,7 @@ def printTree(root, indent):
     printNode(root, indent)
     printTree(root.left, indent + 1)
 
-root, p, q = createTree("3, 5, 1, 6, 2, 0, 8, #, #, 7, 4", 5, 1)
+root, p, q = createTree("3, 5, 1, 6, 2, 0, 8, #, #, 7, 4", 3, 8)
 sol = Solution()
 res = sol.lowestCommonAncestor(root, p, q)
 print(res.val)

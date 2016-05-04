@@ -39,6 +39,15 @@ class TreeNode(object):
        self.left = None
        self.right = None
 
+class Frame(object):
+    def __init__(self, node, parent):
+        # TreeNode: node
+        self.node = node
+        # Frame: parent
+        self.parent = parent
+        # TreeNode list: sub
+        self.sub = []
+
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
         """
@@ -47,8 +56,24 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        if not root or root == p or root == q:
-            return root
-        left = self.lowestCommonAncestor(root.left, p, q)
-        right = self.lowestCommonAncestor(root.right, p, q)
-        return root if left and right else left or right
+        if not root:
+            return None
+        stack = []
+        answer = Frame(None, None)
+        stack.append(Frame(root, answer))
+        while stack:
+            top = stack[-1]
+            node = top.node
+            parent = top.parent
+            if not node or node == p or node == q:
+                parent.sub.append(node)
+                stack.pop()
+            elif not top.sub:
+                stack.append(Frame(node.right, top))
+                stack.append(Frame(node.left, top))
+            else:
+                left = top.sub[0]
+                right = top.sub[1]
+                parent.sub.append(node if left and right else left or right)
+                stack.pop()
+        return answer.sub[0]
