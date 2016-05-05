@@ -16,3 +16,12 @@ submit的结果为:
 Status: Accepted
 Runtime: 56 ms
 ```
+
+第二版是分治合并的常见优化，就是用了一个dic作为cache，避免重复计算。
+
+submit的结果为:
+```
+24 / 24 test cases passed.
+Status: Accepted
+Runtime: 50 ms
+```

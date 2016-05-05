@@ -45,14 +45,21 @@ class Solution(object):
         :type input: str
         :rtype: List[int]
         """
+        self.cache = {}
+        return self.helper(input)
+
+    def helper(self, input):
+        if input in self.cache:
+            return self.cache[input]
         if input.isdigit():
+            self.cache[input] = [int(input)]
             return [int(input)]
         res = []
         for i in range(len(input)):
             c = input[i]
             if c == '+' or c == '-' or c == '*':
-                res1 = self.diffWaysToCompute(input[:i])
-                res2 = self.diffWaysToCompute(input[i+1:])
+                res1 = self.helper(input[:i])
+                res2 = self.helper(input[i+1:])
                 for a in res1:
                     for b in res2:
                         if c == '+':
@@ -63,5 +70,6 @@ class Solution(object):
                             res.append(a * b)
         #  if not res:
             #  res.append(int(input))
+        self.cache[input] = res
         return res
 
