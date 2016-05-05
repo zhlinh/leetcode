@@ -53,21 +53,15 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        q, qi = deque(), deque()
+        qi = deque()
         n = len(nums)
         res = []
         for i in range(n):
-            if q and qi[0] == i - k:
-                q.popleft()
+            if qi and qi[0] == i - k:
                 qi.popleft()
-            while q and nums[i] >= q[0]:
-                q.popleft()
-                qi.popleft()
-            while q and nums[i] >= q[-1]:
-                q.pop()
+            while qi and nums[i] >= nums[qi[-1]]:
                 qi.pop()
-            q.append(nums[i])
             qi.append(i)
             if i >= k - 1:
-                res[i-k+1] = q[0]
+                res.append(nums[qi[0]])
         return res

@@ -21,3 +21,18 @@ submit的结果为:
 Status: Accepted
 Runtime: 240 ms
 ```
+
+版本二主要作了两处优化。
+
+1. 只保留了qi，因为其实q[0]可以从nums[qi[0]]中获得，不必要维护两个deque。
+
+2. 只保留了pop掉最右侧比即将添加的数要小的数，这样就已经足够维护一个递减的序列了。
+
+时间复杂度为O(n)。
+
+submit的结果为:
+```
+18 / 18 test cases passed.
+Status: Accepted
+Runtime: 220 ms
+```
