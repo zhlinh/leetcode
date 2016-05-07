@@ -46,18 +46,14 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        q1, q2, q3 = [], [], []
+        q = [1] * n
         t1, t2, t3 = 0, 0, 0
-        cur = 1
-        for i in range(n - 1):
-            q1.append(cur * 2)
-            q2.append(cur * 3)
-            q3.append(cur * 5)
-            cur = min(q1[t1], q2[t2], q3[t3])
-            if cur == q1[t1]:
+        for i in range(1, n):
+            q[i] = min(q[t1] * 2, q[t2] * 3, q[t3] * 5)
+            if q[i] == q[t1] * 2:
                 t1 += 1
-            if cur == q2[t2]:
+            if q[i] == q[t2] * 3:
                 t2 += 1
-            if cur == q3[t3]:
+            if q[i] == q[t3] * 5:
                 t3 += 1
-        return cur
+        return q[n-1]
