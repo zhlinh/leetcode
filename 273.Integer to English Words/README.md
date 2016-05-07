@@ -10,3 +10,14 @@ submit的结果为:
 Status: Accepted
 Runtime: 68 ms
 ```
+
+更简洁的版本，用了strip()来去除首尾的空格，可以少一些判断。
+
+然后在求小于1000的数时用了递归，使代码更整齐了些。
+
+submit的结果为:
+```
+601 / 601 test cases passed.
+Status: Accepted
+Runtime: 60 ms
+```

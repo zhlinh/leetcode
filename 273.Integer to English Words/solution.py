@@ -36,39 +36,30 @@ class Solution(object):
         :type num: int
         :rtype: str
         """
-        self.dic1 = ["Zero", "One", "Two", "Three", "Four", "Five", \
-                    "Six", "Seven", "Eight", "Nigh", "Ten", \
+        if num == 0:
+            return "Zero"
+        self.dic1 = ["", "One", "Two", "Three", "Four", "Five", \
+                    "Six", "Seven", "Eight", "Nine", "Ten", \
                     "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", \
-                    "Sixteen", "Seventeen", "Eighteen", "Nighteen"]
+                    "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
         self.dic2 = ["", "", "Twenty", "Thirty", "Forty", "Fifty", \
-                     "Sixty", "Seventy", "Eighty", "Nighty"]
-        self.dic3 = ["Thousand", "Million", "Thousand", "Billion"]
+                     "Sixty", "Seventy", "Eighty", "Ninety"]
+        self.dic3 = ["", "Thousand", "Million", "Billion"]
         res = ""
-        last = num % 1000
         i = 0
         while num > 0:
-            sub = self.helper(last)
-            if sub and res:
-                res = " " + res
-            res = sub + res
+            if num % 1000 != 0:
+                res = self.helper(num % 1000) + self.dic3[i] + " " + res
             num //= 1000
-            last = num % 1000
-            if last > 0:
-                res = self.dic3[i] + " " + res
             i = (i + 1) % 4
-        return res
+        return res.strip()
 
     def helper(self, num):
-        res = ""
-        if num // 100 > 0:
-            res += self.dic1[num // 100] + " Hundred"
-        num %= 100
-        if num > 0:
-            if res != "":
-                res = res + " "
-            if num // 10 > 1:
-                res += self.dic2[num // 10] + " " + self.dic1[num % 10]
-            else:
-                res += self.dic1[num]
-        return res or "Zero"
-
+        if num == 0:
+            return ""
+        elif num < 20:
+            return self.dic1[num] + " "
+        elif num < 100:
+            return self.dic2[num // 10] + " " + self.helper(num % 10)
+        else:
+            return self.dic1[num // 100] + " " + "Hundred " + self.helper(num % 100)
