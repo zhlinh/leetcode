@@ -33,9 +33,9 @@ class Solution(object):
         :rtype: int
         """
         n = len(nums)
-        n_sum = n * (1 + n) // 2
-        cur_sum = 0
-        for c in nums:
-            cur_sum += c
-        return n_sum - cur_sum
+        res = n
+        for i in range(n):
+            res ^= nums[i]
+            res ^= i
+        return res
 
