@@ -43,9 +43,19 @@ class Solution(object):
         :type citations: List[int]
         :rtype: int
         """
-        citations.sort()
         n = len(citations)
-        for i in range(n):
-            if citations[i] >= n - i:
-                return n - i
+        if n == 0:
+            return 0
+        count = [0] * (n + 1)
+        total = 0
+        for c in citations:
+            if c > n:
+                count[n] += 1
+            else:
+                count[c] += 1
+        for i in reversed(range(n + 1)):
+            total += count[i]
+            if total >= i:
+                return i
         return 0
+
