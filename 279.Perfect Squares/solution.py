@@ -22,6 +22,8 @@ Special thanks to @jianchao.li.fighter for adding this problem
 and creating all test cases.
 '''
 
+import math
+
 class Solution(object):
     dp = [0]
     def numSquares(self, n):
@@ -29,15 +31,22 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        if n <= 0:
-            return 0
-        m = len(self.dp)
-        while m <= n:
-            cur = 2 ** 31 - 1
-            i = 1
-            while i * i <= m:
-                cur = min(cur, self.dp[m-i*i] + 1)
-                i += 1
-            self.dp.append(cur)
-            m += 1
-        return self.dp[n]
+        if self.isSquare(n):
+            return 1
+        # if it's the form of (4^a)*(8b+7), return 4
+        # n % 4 == 0
+        while n & 3 == 0:
+            # n = n // 4
+            n >>= 2
+        # n % 8 == 7
+        if n & 7 == 7:
+            return 4
+        m = int(math.sqrt(n))
+        for i in range(1, m + 1):
+            if self.isSquare(n - i * i):
+                return 2
+        return 3
+
+    def isSquare(self, n):
+        m = int(math.sqrt(n))
+        return m * m == n
