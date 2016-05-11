@@ -35,11 +35,29 @@ class Solution(object):
         :rtype: int
         """
         n = len(nums)
+        if n < 2:
+            return n
         res = 0
-        dp = [1] * n
-        for i in range(n):
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j] + 1)
-            res = max(res, dp[i])
-        return res
+        lists = [nums[0]]
+        for i in range(1, n):
+            # new smallest value
+            if nums[i] < lists[0]:
+                lists[0] = nums[i]
+            # new largest subsequence
+            elif nums[i] > lists[-1]:
+                lists.append(nums[i])
+            # replace end of one existing subsequence
+            else:
+                lists[self.findPosValue(lists, nums[i])] = nums[i]
+            print(lists)
+        return len(lists)
+
+    def findPosValue(self, lists, val):
+        left, right = 0, len(lists)
+        while left < right:
+            mid = left + (right - left) // 2
+            if lists[mid] >= val:
+                right = mid
+            else:
+                left = mid + 1
+        return left

@@ -4,6 +4,7 @@
 from solution import Solution
 
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
+nums = [10,9,2,5,3,4]
 sol = Solution()
 res = sol.lengthOfLIS(nums)
 print(res)
