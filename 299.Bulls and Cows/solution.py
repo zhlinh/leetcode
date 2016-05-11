@@ -54,13 +54,15 @@ class Solution(object):
         bull, cow = 0, 0
         digits = [0] * 10
         for i in range(n):
-            if secret[i] == guess[i]:
+            sec = ord(secret[i]) - ord('0')
+            gue = ord(guess[i]) - ord('0')
+            if sec == gue:
                 bull += 1
-            digits[int(secret[i])] += 1
-        for c in guess:
-            idx = int(c)
-            if digits[idx] > 0:
-                digits[idx] -= 1
-                cow += 1
-        cow -= bull
+            else:
+                if digits[sec] < 0:
+                    cow += 1
+                if digits[gue] > 0:
+                    cow += 1
+                digits[sec] += 1
+                digits[gue] -= 1
         return str(bull) + "A" + str(cow) + "B"
