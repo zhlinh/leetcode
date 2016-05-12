@@ -46,14 +46,13 @@ class NumMatrix(object):
         """
         if not matrix:
             return
-        self.m = len(matrix)
-        self.n = len(matrix[0])
-        self.from0Sum = [0] * (self.m * self.n + 1)
-        for i in range(self.m):
-            for j in range(self.n):
-                idx = i * self.n + j
-                self.from0Sum[idx+1] = self.from0Sum[idx] + matrix[i][j]
-
+        m = len(matrix)
+        n = len(matrix[0])
+        self.from00Sum = [[0 for _ in range(n + 1)] for __ in range(m + 1)]
+        for i in range(m):
+            for j in range(n):
+                self.from00Sum[i+1][j+1] = self.from00Sum[i+1][j] + \
+                    self.from00Sum[i][j+1] - self.from00Sum[i][j] + matrix[i][j]
 
     def sumRegion(self, row1, col1, row2, col2):
         """
@@ -64,11 +63,8 @@ class NumMatrix(object):
         :type col2: int
         :rtype: int
         """
-        tmp = 0
-        for i in range(row1, row2 + 1):
-            rowStart = i * self.n
-            tmp += self.from0Sum[rowStart+col2+1] - self.from0Sum[rowStart+col1]
-        return tmp
+        return self.from00Sum[row2+1][col2+1] - self.from00Sum[row2+1][col1] - \
+                self.from00Sum[row1][col2+1] + self.from00Sum[row1][col1]
 
 
 # Your NumMatrix object will be instantiated and called as such:
