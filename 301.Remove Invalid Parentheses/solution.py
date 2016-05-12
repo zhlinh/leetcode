@@ -30,32 +30,28 @@ class Solution(object):
         :type s: str
         :rtype: List[str]
         """
-        n = len(s)
-        rmLNum, rmRNum = 0, 0
-        results = set()
-        for c in s:
-            if c == '(':
-                rmLNum += 1
-            if c == ')':
-                if rmLNum > 0:
-                    rmLNum -= 1
-                else:
-                    rmRNum += 1
-        self.dfs(s, 0, n, rmLNum, rmRNum, 0, "", results)
-        return list(results)
+        results = []
+        self.dfs(s, ['(', ')'], 0, 0, results)
+        return results
 
 
-    def dfs(self, s, pos, n, rmLNum, rmRNum, stack, result, results):
-        if pos == n and (rmLNum | rmRNum | stack) == 0:
-            results.add(''.join(result))
+    def dfs(self, s, pair, start_i, start_j, results):
+        stack = 0
+        for i in range(start_i, len(s)):
+            if s[i] == pair[0]:
+                stack += 1
+            if s[i] == pair[1]:
+                stack -= 1
+            # if valid, go forward
+            if stack >= 0:
+                continue
+            for j in range(start_j, i + 1):
+                if s[j] == pair[1] and (j == start_j or s[j] != s[j-1]):
+                    self.dfs(s[:j] + s[j+1:], pair, i, j, results)
             return
-        if pos == n or rmLNum < 0 or rmRNum < 0 or stack < 0:
-            return
-        if s[pos] == '(':
-            self.dfs(s, pos + 1, n, rmLNum - 1, rmRNum, stack, result, results)
-            self.dfs(s, pos + 1, n, rmLNum, rmRNum, stack + 1, result + s[pos], results)
-        elif s[pos] == ')':
-            self.dfs(s, pos + 1, n, rmLNum, rmRNum - 1, stack, result, results)
-            self.dfs(s, pos + 1, n, rmLNum, rmRNum, stack - 1, result + s[pos], results)
+        s = s[::-1]
+        if pair[0] == '(':
+            self.dfs(s, [')', '('], 0, 0, results)
         else:
-            self.dfs(s, pos + 1, n, rmLNum, rmRNum, stack, result + s[pos], results)
+            results.append(s)
+
