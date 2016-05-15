@@ -28,36 +28,20 @@ You may assume the number of calls to update and sumRange function
 is distributed evenly.
 '''
 
-class SegmentTree(object):
-    def __init__(self, start, end):
-        self.left = None
-        self.right = None
-        self.start = start
-        self.end = end
-        self.sum = 0
-
-
 class NumArray(object):
     def __init__(self, nums):
         """
         initialize your data structure here.
         :type nums: List[int]
         """
-        self.root = self.buildSegmentTree(nums, 0, len(nums) - 1)
-
-    def buildSegmentTree(self, nums, start, end):
-        if start > end:
-            return None
-        node = SegmentTree(start, end)
-        if start == end:
-            node.sum = nums[start]
-        else:
-            mid = start + (end - start) // 2
-            node.left = self.buildSegmentTree(nums, start, mid)
-            node.right = self.buildSegmentTree(nums, mid + 1, end)
-            node.sum = node.left.sum + node.right.sum
-        #  print(node.start, node.end, node.sum)
-        return node
+        self.n = len(nums)
+        self.c = [0] * (self.n + 1)
+        self.f = nums
+        for i in range(self.n):
+            k = i + 1
+            while k < self.n + 1:
+                self.c[k] += self.f[i]
+                k += (k & -k)
 
     def update(self, i, val):
         """
@@ -65,20 +49,12 @@ class NumArray(object):
         :type val: int
         :rtype: int
         """
-        self.updateHelper(self.root, i, val)
-
-    def updateHelper(self, node, i, val):
-        if not node or i > node.end or i < node.start:
-            return
-        if node.start == i and node.end == i:
-            node.sum = val
-        else:
-            mid = node.start + (node.end - node.start) // 2
-            if i <= mid:
-                self.updateHelper(node.left, i, val)
-            else:
-                self.updateHelper(node.right, i, val)
-            node.sum = node.left.sum + node.right.sum
+        diff = val - self.f[i]
+        self.f[i] = val
+        k = i + 1
+        while k < self.n + 1:
+            self.c[k] += diff
+            k += (k & -k)
 
     def sumRange(self, i, j):
         """
@@ -87,23 +63,15 @@ class NumArray(object):
         :type j: int
         :rtype: int
         """
-        return self.sumRangeHelper(self.root, i, j)
-
-    def sumRangeHelper(self, node, i, j):
-        if not node or i > node.end or j < node.start:
-            return 0
-        if node.start == i and node.end == j:
-            return node.sum
-        else:
-            mid = node.start + (node.end - node.start) // 2
-            if j <= mid:
-                return self.sumRangeHelper(node.left, i, j)
-            elif i > mid:
-                return self.sumRangeHelper(node.right, i, j)
-            else:
-                return self.sumRangeHelper(node.left, i, mid) + \
-                        self.sumRangeHelper(node.right, mid + 1, j)
-        return node.sum
+        res = 0
+        j = j + 1
+        while j > 0:
+            res += self.c[j]
+            j -= (j & -j)
+        while i > 0:
+            res -= self.c[i]
+            i -= (i & -i)
+        return res
 
 
 # Your NumArray object will be instantiated and called as such:
