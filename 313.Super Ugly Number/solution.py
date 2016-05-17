@@ -35,16 +35,16 @@ class Solution(object):
         :type primes: List[int]
         :rtype: int
         """
-        index = [0] * len(primes)
-        ugly = [1] * n
-        for i in range(1, n):
-            minProduct = 2 ** 31 - 1
-            for j in range(len(index)):
-                tmp = ugly[index[j]] * primes[j]
-                if tmp <= minProduct:
-                    minProduct = tmp
-            for j in range(len(index)):
-                if ugly[index[j]] * primes[j] == minProduct:
-                    index[j] += 1
-            ugly[i] = minProduct
-        return ugly[n-1]
+        import heapq
+        q = []
+        uglyNums = [1] * n
+        k = len(primes)
+        for i in range(k):
+            heapq.heappush(q, (primes[i], 0, primes[i]))
+        for ui in range(1, n):
+            val, index, prime = q[0]
+            uglyNums[ui] = val
+            while q and q[0][0] == val:
+                val, index, prime = heapq.heappop(q)
+                heapq.heappush(q, (prime * uglyNums[index+1], index+1, prime))
+        return uglyNums[n-1]
