@@ -34,30 +34,30 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        res = []
-        n = len(nums)
-        if n < 1:
-            return res
-        padding = min(nums)
+        numsWithIndex = [[0 for _ in range(2)] for __ in range(len(nums))]
         for i in range(len(nums)):
-            # let all the nums[i] >= 0
-            nums[i] = nums[i] - padding + 1
-        clen = max(nums)
-        self.c = [0] * (clen + 1)
-        for i in reversed(range(n)):
-            res.append(self.getSum(nums[i] - 1))
-            self.update(nums[i], 1)
-        return res[::-1]
+            numsWithIndex[i][0] = i
+            numsWithIndex[i][1] = nums[i]
+        res = [0] * len(nums)
+        self.mergeSort(numsWithIndex, res)
+        return res
 
-    def update(self, k, val):
-        while k < len(self.c):
-            self.c[k] += val
-            k += (k & -k)
 
-    def getSum(self, k):
-        ret = 0
-        while k > 0:
-            ret += self.c[k]
-            k -= (k & -k)
-        return ret
-
+    def mergeSort(self, numsWithIndex, res):
+        half = len(numsWithIndex) // 2
+        if half:
+            left = self.mergeSort(numsWithIndex[:half], res)
+            right = self.mergeSort(numsWithIndex[half:], res)
+            i, j = 0, 0
+            m, n = len(left), len(right)
+            while i < m or j < n:
+                if j >= n or (i < m and left[i][1] <= right[j][1]):
+                    numsWithIndex[i+j] = left[i]
+                    # count the num smaller to the right of origin nums[i]
+                    # witch means reversed.
+                    res[left[i][0]] += j
+                    i += 1
+                else:
+                    numsWithIndex[i+j] = right[j]
+                    j += 1
+        return numsWithIndex
