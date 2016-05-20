@@ -34,15 +34,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
+        def T(i, n):
+            return (i * 2 + 1) % (n | 1)
+        n = len(nums)
         nums.sort()
-        half = (len(nums) + 1) // 2
-        left = nums[:half]
-        right = nums[half:]
-        m, n = len(left) - 1, len(right) - 1
-        for i in range(len(nums)):
-            if i % 2 == 0:
-                nums[i] = left[m]
-                m -= 1
+        mid = nums[n // 2]
+        left, cur, right = 0, 0, n - 1
+        while cur <= right:
+            if nums[T(cur, n)] > mid:
+                nums[T(cur, n)], nums[T(left, n)] = nums[T(left, n)], nums[T(cur, n)]
+                left += 1
+                cur += 1
+            elif nums[T(cur, n)] < mid:
+                nums[T(cur, n)], nums[T(right, n)] = nums[T(right, n)], nums[T(cur, n)]
+                right -= 1
             else:
-                nums[i] = right[n]
-                n -= 1
+                cur += 1
