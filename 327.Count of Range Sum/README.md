@@ -47,3 +47,23 @@ sumbmit的结果为:
 Status: Accepted
 Runtime: 392 ms
 ```
+
+第二版就将mergeSort改了一下，改为在原序列上更改，添加start和end两个参数。
+
+另外返回的是res。
+
+其实mergeSort的关键在于当只有一个元素的时候就返回。
+
+然后在原序列上改可以逐一把右侧中比左侧小的放进mergeList中，然后最后放当前左侧的数。
+接着循环下一个左侧的数。
+
+最后把mergeList[:k]复制到sums[start:k]，k后面的是没做更改的右侧的数。
+
+不过和第一版用的时间很接近，貌似没什么优化，但算是学习mergeSort的另一种实现吧。
+
+sumbmit的结果为:
+```
+61 / 61 test cases passed.
+Status: Accepted
+Runtime: 404 ms
+```

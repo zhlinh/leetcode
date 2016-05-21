@@ -41,32 +41,30 @@ class Solution(object):
         sums = [0] * (n + 1)
         for i in range(n):
             sums[i+1] = sums[i] + nums[i]
-        self.res = 0
-        self.mergeSort(sums, lower, upper)
-        return self.res
+        return self.mergeSort(sums, 0, len(sums), lower, upper)
 
+    def mergeSort(self, sums, start, end, lower, upper):
+        if end - start <= 1:
+            return 0
+        half = start + (end - start) // 2
+        res = self.mergeSort(sums, start, half, lower, upper) \
+                + self.mergeSort(sums, half, end, lower, upper)
+        b, e = half, half
+        k, j = 0 , half
+        mergeList = [0] * (end - start)
+        for i in range(start, half):
+            while b < end and sums[b] - sums[i] < lower:
+                b += 1
+            while e < end and sums[e] - sums[i] <= upper:
+                e += 1
+            res += (e - b)
+            while j < end and sums[j] < sums[i]:
+                mergeList[k] = sums[j]
+                k += 1
+                j += 1
+            mergeList[k] = sums[i]
+            k += 1
+        for i in range(k):
+            sums[start+i] = mergeList[i]
+        return res
 
-    def mergeSort(self, sums, lower, upper):
-        half = len(sums) // 2
-        if half:
-            left = self.mergeSort(sums[:half], lower, upper)
-            right = self.mergeSort(sums[half:], lower, upper)
-            m, n = len(left), len(right)
-            i = 0
-            b, e = 0, 0
-            while i < m:
-                while b < n and right[b] - left[i] < lower:
-                    b += 1
-                while e < n and right[e] - left[i] <= upper:
-                    e += 1
-                self.res += (e - b)
-                i += 1
-            i, j = 0, 0
-            while i < m or j < n:
-                if j >= n or (i < m and left[i] <= right[j]):
-                    sums[i+j] = left[i]
-                    i += 1
-                else:
-                    sums[i+j] = right[j]
-                    j += 1
-        return sums
