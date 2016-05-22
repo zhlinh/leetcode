@@ -57,15 +57,12 @@ class Solution(object):
         :type preorder: str
         :rtype: bool
         """
-        trees = preorder.split(',')
-        stack = []
-        for node in trees:
-            stack.append(node)
-            while len(stack) > 2 and stack[-1] == "#" and stack[-2] == "#":
-                if stack[-3] == "#":
-                    return False
-                stack.pop()
-                stack.pop()
-                stack.pop()
-                stack.append(node)
-        return len(stack) == 1 and stack[0] == "#"
+        nodes = preorder.split(',')
+        indegree = -1
+        for node in nodes:
+            indegree += 1
+            if indegree > 0:
+                return False
+            if node != "#":
+                indegree -= 2
+        return True
