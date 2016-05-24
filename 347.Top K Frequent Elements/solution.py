@@ -22,7 +22,6 @@ Your algorithm's time complexity must be better than O(n log n),
 where n is the array's size.
 '''
 
-import heapq
 import collections
 
 class Solution(object):
@@ -33,11 +32,15 @@ class Solution(object):
         :rtype: List[int]
         """
         dic = collections.defaultdict(int)
-        hq, res = [], []
+        freqs = [[] for _ in range(len(nums) + 1)]
+        res = []
         for num in nums:
             dic[num] += 1
         for key in dic:
-            heapq.heappush(hq, (-dic[key], key))
-            if len(hq) > len(dic) - k:
-                res.append(heapq.heappop(hq)[1])
-        return res
+            freqs[dic[key]].append(key)
+        i = len(nums)
+        while i >= 1 and len(res) < k:
+            if freqs[i]:
+                res += freqs[i]
+            i -= 1
+        return res[:k]
